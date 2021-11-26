@@ -10,7 +10,8 @@ import { Container } from "@material-ui/core";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Auth from "./components/Auth/Auth.js";
 import Blogs from "./components/Blogs/Blogs.js";
-import NewBlog from "./components/Blogs/NewBlog.js";
+import NewBlog from "./components/Blogs/CreateBlog.js";
+// import NewBlog from "./components/Blogs/NewBlog.js";
 
 const App = () => {
 
@@ -24,7 +25,7 @@ const App = () => {
     <BrowserRouter>
       <Container>
         <Navbar />
-        <Blogs/>
+        {/* <Blogs/> */}
         <Switch>
           <Route path="/" exact component={Home} /> 
           <Route path="/auth" exact component={Auth} />
