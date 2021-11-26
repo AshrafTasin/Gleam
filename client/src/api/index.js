@@ -1,5 +1,5 @@
 import axios from 'axios';
-const URL="http://localhost:5000";
+// const url="http://localhost:5000/blogs/getBlogs";
 
 const API = axios.create({baseURL : "http://localhost:5000"});
 
@@ -14,6 +14,8 @@ API.interceptors.request.use( (req) => {
 });
 
 
-export const fetchBlogs = () => axios.get(URL);
+export const fetchBlogs = () => API.get('/blogs/getBlog');
+export const createBlog = (newBlog) => API.post('/blogs/createBlog',newBlog);
+
 export const signIn = (formData) => API.post('/users/signin',formData);
 export const signUp = (formData) => API.post('/users/signup',formData);

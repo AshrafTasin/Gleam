@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-import postRoutes from './routes/posts.js';
+import blogRoutes from './routes/blogs.js';
 import userRoutes from './routes/users.js';
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(express.urlencoded({ limit: "100mb", extended: true}));
 app.options('*', cors());
 app.use(cors());
 
-app.use('/posts',postRoutes);
+app.use('/blogs',blogRoutes);
 app.use('/users',userRoutes);
 
 dotenv.config({path: './config.env'});
