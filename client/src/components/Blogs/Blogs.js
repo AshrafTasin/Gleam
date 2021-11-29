@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import React from 'react'
 const Blogs = () => {
@@ -12,11 +13,14 @@ const Blogs = () => {
 
 export default Blogs
 =======
+=======
+>>>>>>> DiscussionWOrks
 import React from 'react';
 import Blog from './Blog/Blog';
 import { useSelector } from 'react-redux';
 
 const Blogs = () => {
+<<<<<<< HEAD
 =======
 import React from 'react';
 import Blog from './Blog/Blog';
@@ -31,6 +35,8 @@ const Blogs = () => {
         setCommentLists(CommentLists.concat(newComment))
     }
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
     const blogs=useSelector((state) => state.blogs);
     console.log(blogs);
     return (
@@ -38,16 +44,22 @@ const Blogs = () => {
         <Blog />
         <Blog />
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <Comment CommentLists={CommentLists}
          postId={"ooo"}  refreshFunction={updateComment}/>
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
         </>
     )
 }
 
 export default Blogs;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> discuss works
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks

@@ -1,6 +1,7 @@
 // echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from "react";
 import Navbar from "./components/Navbar/Navbar.js";
 import Home from "./components/Home/Home.js";
@@ -19,6 +20,8 @@ const App = () => {
 =======
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
 import React ,{useEffect} from "react";
 import Navbar from "./components/Navbar/Navbar.js";
 import Home from "./components/Home/Home.js";
@@ -35,6 +38,7 @@ import NewDiscussion from "./components/DiscussionList/CreateDiscussion.js";
 // import NewBlog from "./components/Blogs/NewBlog.js";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const App = () => {
 
 =======
@@ -46,6 +50,10 @@ const App = () => {
 
 
 >>>>>>> comment
+=======
+const App = () => {
+
+>>>>>>> DiscussionWOrks
   const dispatch = useDispatch();
 
   useEffect(() =>{
@@ -53,13 +61,17 @@ const App = () => {
   },[dispatch]);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> discuss works
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
   return (
     <BrowserRouter>
       <Container>
         <Navbar />
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         {/* <Home /> */}
@@ -74,6 +86,8 @@ const App = () => {
 =======
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
         {/* <Blogs/> */}
         <Switch>
           <Route path="/" exact component={Home} /> 
@@ -82,9 +96,12 @@ const App = () => {
           <Route path="/new-blog" exact component={NewBlog}/>
           <Route path="/new-disc" exact component={NewDiscussion}/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> discuss works
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
 
         </Switch>
       </Container>

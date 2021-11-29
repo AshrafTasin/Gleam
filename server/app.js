@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import postRoutes from './routes/posts.js';
 import userRoutes from './routes/users.js';
 =======
@@ -20,6 +21,11 @@ import discRoutes from './routes/discs.js';
 import commRoutes from './routes/comment.js';
 
 >>>>>>> comment
+=======
+import blogRoutes from './routes/blogs.js';
+import userRoutes from './routes/users.js';
+import discRoutes from './routes/discs.js';
+>>>>>>> DiscussionWOrks
 
 const app = express();
 
@@ -28,6 +34,7 @@ app.use(express.urlencoded({ limit: "100mb", extended: true}));
 app.options('*', cors());
 app.use(cors());
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 app.use('/posts',postRoutes);
@@ -43,6 +50,11 @@ app.use('/users',userRoutes);
 app.use('/discussion',discRoutes);
 app.use('/comment',commRoutes);
 >>>>>>> comment
+=======
+app.use('/blogs',blogRoutes);
+app.use('/users',userRoutes);
+app.use('/discussion',discRoutes);
+>>>>>>> DiscussionWOrks
 
 dotenv.config({path: './config.env'});
 
@@ -52,10 +64,14 @@ const PORT = process.env.PORT;
 mongoose.connect(CONNECTION_URL,{
     useNewUrlParser: true, 
 <<<<<<< HEAD
+<<<<<<< HEAD
     useUnifiedTopology: true
 =======
     useUnifiedTopology: true,
 >>>>>>> comment
+=======
+    useUnifiedTopology: true
+>>>>>>> DiscussionWOrks
 }).then(() => app.listen(PORT, () => console.log(`server running on PORT ${PORT}`)))
   .catch((error) => console.log(error.message) );
 

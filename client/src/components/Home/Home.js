@@ -1,6 +1,7 @@
 import React from 'react';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {Grid,Card,CardActionArea,CardActions,CardMedia,Button} from '@material-ui/core';
 import useStyles from './styles'
 
@@ -51,6 +52,8 @@ export default Home
 =======
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
 import { ButtonBase,makeStyles,Typography } from '@material-ui/core';
 import useStyles from './styles';
 
@@ -108,6 +111,9 @@ const Home = () => {
 }
 export default Home;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> discuss works
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks

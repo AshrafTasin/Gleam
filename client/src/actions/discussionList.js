@@ -1,12 +1,16 @@
 import * as api from '../api';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> DiscussionWOrks
 //Action Creators
 
 export const getDisc = () => async (dispatch) => {
     try {
         const {data} = await api.fetchDiscList();
 
+<<<<<<< HEAD
 =======
 export const fetchADiscussion = (id) => async (dispatch) => {
     try {
@@ -19,6 +23,8 @@ export const getDisc = () => async (dispatch) => {
     try {
         const {data} = await api.fetchDiscList();
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
         dispatch({type: 'FETCH_ALL',payload: data})
     } catch (error) {
         console.log(error.message);

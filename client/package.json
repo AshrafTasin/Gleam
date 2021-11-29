@@ -17,9 +17,12 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     "antd": "^4.17.2",
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
     "axios": "^0.21.1",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
@@ -29,17 +32,21 @@
     "react-google-login": "^5.2.2",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
 =======
 =======
 >>>>>>> comment
+=======
+>>>>>>> DiscussionWOrks
     "react-helmet": "^6.1.0",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-tag-input": "^6.7.3",
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> discuss works
     "redux": "^4.1.0",
@@ -47,6 +54,9 @@
     "redux": "^4.1.0",
     "redux-devtools-extension": "^2.13.9",
 >>>>>>> comment
+=======
+    "redux": "^4.1.0",
+>>>>>>> DiscussionWOrks
     "redux-thunk": "^2.3.0",
     "web-vitals": "^1.0.1"
   },
