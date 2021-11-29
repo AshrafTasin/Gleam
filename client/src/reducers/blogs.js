@@ -6,7 +6,6 @@ export default (blogs=[], action) => {
     case 'FETCH_SINGLE':
         console.log("Ekahne  "+action.type)
         return action.payload;
-        // return [... blogs,action.payload];
     case 'CREATE':
         return [... blogs,action.payload];
     default:

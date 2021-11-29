@@ -4,7 +4,9 @@ import { useLocation } from 'react-router';
 import { useDispatch,useSelector } from 'react-redux';
 import ReactHtmlParser from 'react-html-parser';
 import { getSingleBlog } from '../../../actions/blogs';
+import axios from 'axios';
 import "./singleBlogPage.css";
+import HtmlParser from 'react-html-parser';
 
 const SingleBlogPage = () => {
   const dispatch = useDispatch();
@@ -15,11 +17,11 @@ const SingleBlogPage = () => {
   });
 
   useEffect(() => {
-     dispatch(getSingleBlog(id))
-    // setBlog({...blog,ans})
-    // const ans = dispatch(getSingleBlog(id));
-    // console.log(blog);
-    // setBlog(dispatch(getSingleBlog(id)))  
+    const getPost = async () => {
+      const res = await axios.get("http://localhost:5000/blogs/" + id);
+      setBlog(res.data);
+    };
+    getPost();
   },[id]);
 
     return (
@@ -48,10 +50,9 @@ const SingleBlogPage = () => {
               </span>
               <span>1 day ago</span>
             </div>
-            <p className="singlePostDesc">
-              {/* {ReactHtmlParser(blog.body)} */}
-              {blog.title}
-            </p>
+            <div className="singlePostDesc">
+              {ReactHtmlParser(blog.body)}
+            </div>
           </div>
         </div>
       );
