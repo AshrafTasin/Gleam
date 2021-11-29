@@ -11,7 +11,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Auth from "./components/Auth/Auth.js";
 import Blogs from "./components/Blogs/Blogs.js";
 import NewBlog from "./components/Blogs/CreateBlog.js";
-// import NewBlog from "./components/Blogs/NewBlog.js";
+
+import Post from "./components/Blogs/SingleBlogPage/SingleBlogPage.js";
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
           <Route path="/auth" exact component={Auth} />
           <Route path="/blogs" exact component={Blogs} />
           <Route path="/new-blog" exact component={NewBlog}/>
+          <Route path="/blog/:blogid" exact component={Post}/>
         </Switch>
       </Container>
     </BrowserRouter>

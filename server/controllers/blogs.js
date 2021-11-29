@@ -14,7 +14,17 @@ export const getBlogs = async (req,res)=> {
 
    }
 };
- 
+
+export const getSingleBlog = async(req,res) => {
+        try {
+          const blog = await BlogMessage.findById(req.params.id);
+          console.log("Post Pawa gsssese");
+          res.status(200).json(blog);
+        } catch (err) {
+          res.status(500).json(err);
+        }
+};
+
 export const createBlogs = async (req,res) => {
     const blog = req.body;
 
@@ -30,3 +40,4 @@ export const createBlogs = async (req,res) => {
         res.status(409).json({message : error.message});
     }
 };
+

@@ -106,14 +106,11 @@ const CreateBlog = () => {
                         id="size-small-outlined-multi"
                         size="large"
                         options={toptags}
-                        
-                        // onChange={(_event, value) => console.log(value)} 
                         getOptionLabel={(option) => option.title}
                         renderInput={(params) => (
                           <TextField {...params} label="Tag(s)" placeholder="Choose/Type letters" />
                         )}
                         onChange={handleTags}
-                        // onChange={(e,value) => setBlogData({...blogData,tags:JSON.stringify(value)})}
                     />
               </div>  
 
@@ -171,7 +168,7 @@ const CreateBlog = () => {
               <Button 
                   size="large" id="submit_button" 
                   variant="outlined" color="primary"
-                  style={{  backgroundColor: '#212121', color:'#fafafa' }}
+                  // style={{  backgroundColor: '#212121', color:'#fafafa' }}
                   startIcon={<PublishIcon />}
                   type='submit'
               > Post 
