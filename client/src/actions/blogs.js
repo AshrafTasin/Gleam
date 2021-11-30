@@ -30,3 +30,13 @@ export const createBlog = (blog) => async (dispatch) => {
         console.log(error.message);
     }
 }
+
+export const deleteBlog = (id) => async(dispatch) => {
+    try {
+        console.log("Delete action e dhukse");
+        await api.deleteBlog(id);
+        dispatch({type:'DELETE',payload: id});
+      } catch (error) {
+        console.log(error.message);
+      }
+}

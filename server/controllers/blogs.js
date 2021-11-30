@@ -1,15 +1,14 @@
-import BlogMessage from '../models/blogMessage.js';
-import path ,{dirname} from 'path';
-import fs, { appendFile } from 'fs';
+import Blogs from '../models/blogs.js';
+import path from 'path';
+import fs from 'fs';
 
 
 
 export const getBlogs = async (req,res)=> {
    try{
-
-    const blogMessages = await BlogMessage.find();
+    const blogs = await Blogs.find();
  
-    res.status(200).json(blogMessages);
+    res.status(200).json(blogs);
 
    }catch (error) {
     
@@ -20,7 +19,7 @@ export const getBlogs = async (req,res)=> {
 
 export const getSingleBlog = async(req,res) => {
         try {
-          const blog = await BlogMessage.findById(req.params.id);
+          const blog = await Blogs.findById(req.params.id);
           console.log("Post Pawa gsssese");
           res.status(200).json(blog);
         } catch (err) {
@@ -31,7 +30,7 @@ export const getSingleBlog = async(req,res) => {
 export const createBlogs = async (req,res) => {
     const blog = req.body;
 
-    const newBlog = new BlogMessage(blog);
+    const newBlog = new Blogs(blog);
 
     try {
         await newBlog.save();
@@ -66,4 +65,23 @@ export const blogImage = (req,res) => {
 
 export const getBlogImage = (req,res) => {
     res.download('./images/'+req.params.id);
+}
+
+export const deleteBlog = async (req, res) => {
+    console.log(req.body);
+  try {
+    const blog = await Blogs.findById(req.params.id);
+    // if (blog.author === req.body.username) {
+      try {
+        await blog.delete();
+        res.status(200).json("Post has been deleted...");
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    // } else {
+    //   res.status(401).json("You can delete only your post!");
+    // }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 }

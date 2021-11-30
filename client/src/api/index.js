@@ -1,5 +1,4 @@
 import axios from 'axios';
-// const url="http://localhost:5000/blogs/getBlogs";
 
 const API = axios.create({baseURL : "http://localhost:5000"});
 
@@ -18,6 +17,7 @@ export const fetchBlogs = () => API.get('/blogs/getBlog');
 export const createBlog = (newBlog) => API.post('/blogs/createBlog',newBlog);
 export const fetchSingleBlog = (id) => API.get('/blogs/'+id);
 export const upload = (data) => API.post('/blogs/upload',data);
+export const deleteBlog = (id) => API.delete(`/blogs/${id}`)
 
 export const signIn = (formData) => API.post('/users/signin',formData);
 export const signUp = (formData) => API.post('/users/signup',formData);

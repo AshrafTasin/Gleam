@@ -21,7 +21,6 @@ const Navbar = () => {
       dispatch({type: 'LOGOUT' });
       history.push('/auth');
       setUser(null);
-
   };
 
     useEffect(() => {

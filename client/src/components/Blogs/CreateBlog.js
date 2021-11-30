@@ -1,24 +1,21 @@
-import React, {useState} from 'react';
+import React, { useState,useEffect} from 'react';
+import { useLocation } from 'react-router-dom';
 import { Paper,Grid,TextField,InputAdornment,Button } from '@material-ui/core';
 import useStyles from './styles';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 
-// import { WithContext as ReactTags } from 'react-tag-input';
-// import { Helmet } from "react-helmet";
-// import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
-// import Stack from '@mui/material/Stack';
 
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-// import AppsIcon from '@material-ui/icons/Apps';
 import AirplayIcon from '@material-ui/icons/Airplay'; 
 import PublishIcon from '@material-ui/icons/Publish';
 
 import {useDispatch} from 'react-redux';
 import { createBlog } from '../../actions/blogs';
 
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const CreateBlog = () => {
@@ -42,11 +39,20 @@ const CreateBlog = () => {
 
     // const classes = useStyles();
 
+    const location = useLocation();
+
     const [blogData,setBlogData] = useState({
-        title:'',tags:'',body:'1' 
+        title:'',tags:'',body:'1',author:'' 
     });
 
     const dispatch = useDispatch();
+
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+    useEffect(() => {
+      const token = user?.token;
+      setUser(JSON.parse(localStorage.getItem('profile')));
+    }, [location])
 
     const handleTags = (event,value) => {
       let json=JSON.stringify(value);
@@ -62,15 +68,31 @@ const CreateBlog = () => {
       setBlogData({...blogData,tags:result});
     }
 
+    const notify = () => toast.success('Blog Added Successfully!', {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        progress: undefined,
+      });;
+
     const handleSubmit = (event) =>{
         event.preventDefault();
-        dispatch(createBlog(blogData)); 
+        dispatch(createBlog(blogData));
+        notify();
+        window.location.replace('/blogs');
+        
+        
+        
     }
 
     const handleCkeditor = (event,editor) => {
         const data = editor.getData();
+        console.log(user.result)
         setBlogData({
-          ...blogData, body: data
+          ...blogData, body: data,author:user.result.name
         })
     }
 
@@ -172,7 +194,9 @@ const CreateBlog = () => {
               > Post 
               </Button>
           </form>
+          <ToastContainer/>
         </Paper>
+       
     )
 };
 
