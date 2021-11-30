@@ -152,12 +152,10 @@ const CreateBlog = () => {
                   }}
                   
                   config={
-                    
                     {
                       ckfinder:{
-                        uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
+                        uploadUrl: '/blogs/upload'
                       },
-
                     }
                   }
                   

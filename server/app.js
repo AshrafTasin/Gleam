@@ -8,11 +8,16 @@ import blogRoutes from './routes/blogs.js';
 import userRoutes from './routes/users.js';
 
 const app = express();
+app.options('*', cors());
+app.use(cors({
+  origin:"http://localhost:3000",
+}));
 
+app.use(express.static("images"));
 app.use(express.json({ limit: "100mb", extended: true}));
 app.use(express.urlencoded({ limit: "100mb", extended: true}));
-app.options('*', cors());
-app.use(cors());
+
+
 
 app.use('/blogs',blogRoutes);
 app.use('/users',userRoutes);
