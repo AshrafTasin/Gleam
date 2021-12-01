@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
 <<<<<<< HEAD
+<<<<<<< HEAD
     root: {
         maxWidth: 340,
       },
@@ -15,6 +16,8 @@ export default makeStyles((theme) => ({
     }
   }));
 =======
+=======
+>>>>>>> comment
 
   root: {
     display: 'flex',
@@ -102,5 +105,9 @@ export default makeStyles((theme) => ({
 // },
 // media: {
 //   height: 340,
+<<<<<<< HEAD
 // },
 >>>>>>> discuss works
+=======
+// },
+>>>>>>> comment
