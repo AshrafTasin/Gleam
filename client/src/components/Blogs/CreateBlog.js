@@ -83,9 +83,6 @@ const CreateBlog = () => {
         dispatch(createBlog(blogData));
         notify();
         window.location.replace('/blogs');
-        
-        
-        
     }
 
     const handleCkeditor = (event,editor) => {

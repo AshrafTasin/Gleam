@@ -12,18 +12,19 @@ export const getBlogs = () => async (dispatch) => {
     }
 }
 
-export const getSingleBlog = (id) => async (dispatch) => {
-    try {
-        const {data} = await api.fetchSingleBlog(id);
-        dispatch({type: 'FETCH_SINGLE',payload: data});
-        console.log(data);
-    } catch (error) {
-        console.log(error.message);
-    }
-}
+// export const getSingleBlog = (id) => async (dispatch) => {
+//     try {
+//         const {data} = await api.fetchSingleBlog(id);
+//         dispatch({type: 'FETCH_SINGLE',payload: data});
+//         console.log(data);
+//     } catch (error) {
+//         console.log(error.message);
+//     }
+// }
 
 export const createBlog = (blog) => async (dispatch) => {
     try {
+        console.log("In the air");
         const data = await api.createBlog(blog);
         dispatch({type:'CREATE',payload: data});
     } catch (error) {
@@ -40,3 +41,12 @@ export const deleteBlog = (id) => async(dispatch) => {
         console.log(error.message);
       }
 }
+
+export const updateBlog = (blog) => async (dispatch) => {
+    try {
+      const data = await api.updateBlog(blog);
+      dispatch({ type: 'UPDATE', payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };

@@ -30,7 +30,9 @@ const Home = () => {
           style={{
             width: image.width,
           }}
+          onClick={(e)=> {window.location.assign('/blogs')}} 
         >
+
           <span
             className={classes.imageSrc}
             style={{

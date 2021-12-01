@@ -18,6 +18,7 @@ export const createBlog = (newBlog) => API.post('/blogs/createBlog',newBlog);
 export const fetchSingleBlog = (id) => API.get('/blogs/'+id);
 export const upload = (data) => API.post('/blogs/upload',data);
 export const deleteBlog = (id) => API.delete(`/blogs/${id}`)
+export const updateBlog = (blog) => API.put(`/blogs/${blog._id}`, blog);
 
 export const signIn = (formData) => API.post('/users/signin',formData);
 export const signUp = (formData) => API.post('/users/signup',formData);

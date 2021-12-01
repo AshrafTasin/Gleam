@@ -85,3 +85,26 @@ export const deleteBlog = async (req, res) => {
     res.status(500).json(err);
   }
 }
+
+export const updateBlog = async (req,res) => {
+    const id  = req.params.id;
+    console.log(id);
+    console.log(req.body);
+    const { createdAt,tags,likeCount,author, title, body, _id,_v } = req.body;
+    
+    // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+
+    const updatedBlog = { createdAt,tags,likeCount,author, title, body, _id: id,_v };
+
+    try {
+          await Blogs.findByIdAndUpdate(id, updatedBlog, { new: true });
+          // res.status(201).json(newBlog);
+
+        } catch (error) {
+        
+        res.status(409).json({message : error.message});
+    }
+
+    console.log(updatedBlog);
+    res.json(updatedBlog);
+}
