@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { Component } from "react";
 import {TextField,Button } from '@material-ui/core'
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -91,6 +92,8 @@ export class Comment extends Component {
 }
 export default Comment;
 =======
+=======
+>>>>>>> blog/disc !
 import React from 'react'
 import { Button, Input } from 'antd';
 import axios from 'axios';
@@ -128,13 +131,26 @@ const Comment = (props) => {
         }
         return packedComment;
     }
+<<<<<<< HEAD
 
+=======
+    const getComments = async () => {
+        const res = await axios.get("http://localhost:5000/comment/getComments");
+        console.log(res.data); //chk browser
+        return res;
+    };
+>>>>>>> blog/disc !
     const onSubmit= (e)=>{
 
         e.preventDefault();
         props.refreshFunction(Comment);
         dispatch(createComment( RepackComment(Comment))); 
         setComment("")
+<<<<<<< HEAD
+=======
+        getComments();
+
+>>>>>>> blog/disc !
     }
     return (
         <div>
@@ -177,4 +193,7 @@ const Comment = (props) => {
 }
 
 export default Comment
+<<<<<<< HEAD
 >>>>>>> comment
+=======
+>>>>>>> blog/disc !

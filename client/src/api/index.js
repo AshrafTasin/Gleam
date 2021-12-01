@@ -44,16 +44,27 @@ export const signUp = (formData) => API.post('/users/signup',formData);
 
 export const fetchDiscList = () => API.get('/discussion/getDisc');
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const createDisc = (newDisc) => API.post('/discussion/createDisc',newDisc);
 <<<<<<< HEAD
 >>>>>>> discuss works
 =======
 export const fetchADiscussion = (id) => API.get('/discussion/'+id);
+=======
+export const createDisc = (newDisc) => API.post('/discussion/createDisc',newDisc);
+export const fetchADiscussion = (id) => API.get('/discussion/'+id);
+export const upload = (data) => API.post('/discussion/upload',data);
+export const deleteDisc = (id) => API.delete(`/discussion/${id}`)
+export const updateDisc = (disc) => API.put(`/discussion/${disc._id}`, disc);
+>>>>>>> blog/disc !
 
 
 export const createComment = (newComm) => API.post('/comment/saveComment',newComm);
 export const getComments = () => API.get('/comment/getComments');
+<<<<<<< HEAD
 >>>>>>> comment
 =======
 export const createDisc = (newDisc) => API.post('/discussion/createDisc',newDisc);
 >>>>>>> DiscussionWOrks
+=======
+>>>>>>> blog/disc !

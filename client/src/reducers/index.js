@@ -12,8 +12,9 @@ export const reducers = combineReducers({auth});
 =======
 >>>>>>> DiscussionWOrks
 import blogs from './blogs';
-
+import discussion from './discussion'
 export const reducers = combineReducers({
+<<<<<<< HEAD
     auth,blogs
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -25,3 +26,7 @@ export const reducers = combineReducers({
 =======
 }); 
 >>>>>>> DiscussionWOrks
+=======
+    auth,blogs,discussion
+}); 
+>>>>>>> blog/disc !

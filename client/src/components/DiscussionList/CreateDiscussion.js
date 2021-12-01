@@ -1,23 +1,13 @@
 import React, {useState} from 'react';
 import { Paper,Grid,TextField,InputAdornment,Button } from '@material-ui/core';
-// import useStyles from './styles';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
-
-// import { WithContext as ReactTags } from 'react-tag-input';
-// import { Helmet } from "react-helmet";
-// import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
-// import Stack from '@mui/material/Stack';
-
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-// import AppsIcon from '@material-ui/icons/Apps';
 import AirplayIcon from '@material-ui/icons/Airplay'; 
 import PublishIcon from '@material-ui/icons/Publish';
-
 import {useDispatch} from 'react-redux';
 import {createDisc}  from '../../actions/discussionList';
-
 
 
 

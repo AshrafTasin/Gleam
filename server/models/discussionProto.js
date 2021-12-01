@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const DiscSchema = mongoose.Schema({
     title : String,body : String,
     author : String,
+    body :String,
     tags : [String],
     Desc :{type: String },
     Solved:{type: Boolean,default: false},

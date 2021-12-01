@@ -18,8 +18,12 @@ export default Blogs
 import React from 'react';
 import Blog from './Blog/Blog';
 import { useSelector } from 'react-redux';
+import Comment from '../Comment/Comment'
+import  { useEffect, useState } from "react";
+
 
 const Blogs = () => {
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import React from 'react';
@@ -28,15 +32,20 @@ import { useSelector } from 'react-redux';
 import Comment from '../Comment/Comment'
 import  { useEffect, useState } from "react";
 const Blogs = () => {
+=======
+>>>>>>> blog/disc !
 
     const [CommentLists, setCommentLists]= useState([]);
     const updateComment= (newComment)=>{
         
         setCommentLists(CommentLists.concat(newComment))
     }
+<<<<<<< HEAD
 >>>>>>> comment
 =======
 >>>>>>> DiscussionWOrks
+=======
+>>>>>>> blog/disc !
     const blogs=useSelector((state) => state.blogs);
     console.log(blogs);
     return (
@@ -45,12 +54,17 @@ const Blogs = () => {
         <Blog />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         <Comment CommentLists={CommentLists}
          postId={"ooo"}  refreshFunction={updateComment}/>
 >>>>>>> comment
 =======
 >>>>>>> DiscussionWOrks
+=======
+        <Comment CommentLists={CommentLists}
+         postId={"ooo"}  refreshFunction={updateComment}/>
+>>>>>>> blog/disc !
         </>
     )
 }

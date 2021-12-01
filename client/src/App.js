@@ -34,9 +34,9 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Auth from "./components/Auth/Auth.js";
 import Blogs from "./components/Blogs/Blogs.js";
 import NewBlog from "./components/Blogs/CreateBlog.js";
-import NewDiscussion from "./components/DiscussionList/CreateDiscussion.js";
 // import NewBlog from "./components/Blogs/NewBlog.js";
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 const App = () => {
@@ -54,10 +54,27 @@ const App = () => {
 const App = () => {
 
 >>>>>>> DiscussionWOrks
+=======
+import NewDiscussion from "./components/DiscussionList/CreateDiscussion.js";
+import Discussions from "./components/DiscussionList/DiscussionList.js";
+import SingleDiscPage from './components/DiscussionList/SingleDisc/SingleDisc';
+import {getDisc} from './actions/discussionList';
+
+
+
+
+const App = () => {
+
+
+>>>>>>> blog/disc !
   const dispatch = useDispatch();
 
   useEffect(() =>{
     dispatch(getBlogs());
+  },[dispatch]);
+  
+  useEffect(() =>{
+    dispatch(getDisc());
   },[dispatch]);
 
 <<<<<<< HEAD
@@ -97,11 +114,16 @@ const App = () => {
           <Route path="/new-disc" exact component={NewDiscussion}/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> discuss works
 =======
 >>>>>>> comment
 =======
 >>>>>>> DiscussionWOrks
+=======
+          <Route path="/discussion" exact component={Discussions} />
+          <Route path="/discussion/:discussionid" exact component={SingleDiscPage}/>
+>>>>>>> blog/disc !
 
         </Switch>
       </Container>

@@ -13,6 +13,10 @@ export const getComments = () => async (dispatch) => {
         const {data} = await api.getComments();
         dispatch({type: 'FETCH_ALL',payload: data})
         console.log("got coms "+data );
+<<<<<<< HEAD
+=======
+        return data;
+>>>>>>> blog/disc !
     } catch (error) {
         console.log(error.message);
     }
