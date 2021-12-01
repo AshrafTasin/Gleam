@@ -40,6 +40,8 @@ export const signUp = async (req,res) => {
     
     const {email,password,confirmPassword,firstName,lastName} = req.body;
 
+    console.log(`${password} ${confirmPassword}`);
+
     try {
         const existingUser = await User.findOne({email});
 
@@ -67,7 +69,6 @@ export const signUp = async (req,res) => {
             }
         );
 
-        console.log("7");
         res.status(200).json({ result: result,token});
 
     } catch (error) {

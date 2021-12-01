@@ -10,7 +10,7 @@ import Input from "./Input";
 
 // import useStyles from './styles';           CUSTOM CSS
 
-const initialState ={firstName: '', lastName: '', email: '', passwrord: '', confirmPassword: ''};
+const initialState ={firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
 
@@ -34,10 +34,6 @@ const Auth = () => {
         }else{
             dispatch(signin(formData,history));
         }
-    };
-
-    const handleChange =(event) => {
-        setFormData({ ...formData,[event.target.name]: event.target.value});
     };
 
     const switchMode = () => {
@@ -75,17 +71,17 @@ const Auth = () => {
                     {
                         isSignUp && (
                             <>
-                                <Input name="firstname" label="First Name" handleChange={handleChange} autoFocus half />
-                                <Input name="lastname" label="Last Name" handleChange={handleChange} half />
+                                <Input name="firstname" label="First Name" handleChange={(e) => setFormData({ ...formData,firstName: e.target.value})} autoFocus half />
+                                <Input name="lastname" label="Last Name" handleChange={(e) => setFormData({ ...formData,lastName: e.target.value})} half />
                             </>
                         )
                     }
 
-                    <Input name="email" label="Email Address" handleChange={handleChange} type="email"/>
-                    <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+                    <Input name="email" label="Email Address" handleChange={(e) => setFormData({ ...formData,email: e.target.value})} type="email"/>
+                    <Input name="password" label="Password" handleChange={(e) => setFormData({ ...formData,password: e.target.value})} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
                     {
                         isSignUp && 
-                        <Input name="confirmPassword" label="Confirm Password" handleChange={handleChange} type="password" />
+                        <Input name="confirmPassword" label="Confirm Password" handleChange={(e) => setFormData({ ...formData,confirmPassword: e.target.value})} type="password" />
                     }
                     </Grid>
 
