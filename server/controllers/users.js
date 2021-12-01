@@ -8,6 +8,7 @@ export const signIn = async (req,res) => {
     const {email,password} = req.body;
     
     try {
+        console.log(email);
         const existingUser = await User.findOne({ email });
 
         if(!existingUser){
@@ -18,7 +19,6 @@ export const signIn = async (req,res) => {
 
         if(!passwordMatch){
             return res.status(400).json({message:"Invalid Credentials"});
-
         }
 
         const token = jwt.sign({

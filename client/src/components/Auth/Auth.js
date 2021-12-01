@@ -32,6 +32,7 @@ const Auth = () => {
             dispatch(signup(formData,history));  
               
         }else{
+            console.log(formData);
             dispatch(signin(formData,history));
         }
     };

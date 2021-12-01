@@ -29,10 +29,11 @@ export const getSingleBlog = async(req,res) => {
 
 export const createBlogs = async (req,res) => {
     const blog = req.body;
-
+    console.log(req.body);
     const newBlog = new Blogs(blog);
 
     try {
+        console.log("Trying ");
         await newBlog.save();
 
         res.status(201).json(newBlog);
