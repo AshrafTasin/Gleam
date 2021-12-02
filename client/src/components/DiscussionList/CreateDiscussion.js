@@ -1,58 +1,42 @@
-import React, { useState,useEffect} from 'react';
-import { useLocation } from 'react-router-dom';
+import React, {useState} from 'react';
 import { Paper,Grid,TextField,InputAdornment,Button } from '@material-ui/core';
-import useStyles from './styles';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
-
 import Autocomplete from '@mui/material/Autocomplete';
-
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import AirplayIcon from '@material-ui/icons/Airplay'; 
 import PublishIcon from '@material-ui/icons/Publish';
-
 import {useDispatch} from 'react-redux';
-import { createBlog } from '../../actions/blogs';
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import {createDisc}  from '../../actions/discussionList';
 
 
-const CreateBlog = () => {
+
+const CreateDiscussion = () => {
+
     const parent_width=1080;
     const parent_margin_top='5vh';
     const parent_margin_bottom='3vh';
 
-  
 
     const toptags=[{ title: 'BlockChain' },
-    { title: 'Tech' },
-    { title: 'CSE'},
+    { title: 'Network.sh' },
+    { title: 'BitCoin'},
     { title: 'App devolopment'} ,
-    { title: 'Software Review'} ,
+    { title: 'Decentralized App'} ,
     { title: 'Privacy'}, 
-    { title: 'Recruitment'},
-    { title: 'Devoloping'}, 
-    { title: 'ADB'},
+    { title: 'Git'},
+    { title: 'DevRant'}, 
+    { title: 'Wallet'},
     ];
     
 
     // const classes = useStyles();
 
-    const location = useLocation();
-
-    const [blogData,setBlogData] = useState({
-        title:'',tags:'',body:'1',authorID:'',authorName:'',authorAbout:'',authorImage:''
+    const [DiscData,setDiscData] = useState({
+        title:'',tags:'',body:'1' 
     });
 
-    const dispatch = useDispatch();
-
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-
-    useEffect(() => {
-      const token = user?.token;
-      setUser(JSON.parse(localStorage.getItem('profile')));
-    }, [location])
+   const dispatch = useDispatch();
 
     const handleTags = (event,value) => {
       let json=JSON.stringify(value);
@@ -61,60 +45,38 @@ const CreateBlog = () => {
       if(json.search("BlockChain")!=-1){
           result.push("Blockchain");
       }
-      if(json.search("CSE")!=-1){
-        result.push("CSE");
+      if(json.search("BitCoin")!=-1){
+        result.push("BitCoin");
     }
-
-      setBlogData({...blogData,tags:result});
+       setDiscData({...DiscData,tags:result});
     }
-
-    const notify = () => toast.success('Blog Added Successfully!', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });;
 
     const handleSubmit = (event) =>{
         event.preventDefault();
-        // console.log(user)
-        // setBlogData({
-        //   ...blogData,authorID:user.result._id,authorName:`${user.result.firstName} ${user.result.lastName}`,
-        //   authorAbout:user.result.about,authorImage:user.result.profilePicture
-        // })
-        // setBlogData({
-        //   ...blogData,authorID:user.result._id,authorName:`${user.result.firstName} ${user.result.lastName}`
-        // })
-        // console.log(blogData)
-        dispatch(createBlog(blogData));
-        notify();
-        window.location.replace('/blogs');
+        console.log(JSON.stringify(DiscData));
+        dispatch(createDisc(DiscData));
+        window.location.replace('/discussion');
     }
 
     const handleCkeditor = (event,editor) => {
         const data = editor.getData();
-        console.log(user.result)
-        setBlogData({
-          ...blogData, body: data,authorID:user.result._id,authorName:`${user.result.firstName} ${user.result.lastName}`,
-          authorAbout:user.result.about,authorImage:user.result.profilePicture
+        setDiscData({
+          ...DiscData, body: data
         })
     }
-
 
     return (
 
         <Paper>
           <form autoComplete='off' noValidate onSubmit={handleSubmit}>
-              <TextField name="blog_title" 
+              <TextField name="dis_title" 
                       id="outlined-basic" 
-                      label="Blog Title" 
+                      label="Question/Discussion Title" 
                       variant="outlined"  
                       color="secondary"
                       InputLabelProps={{style: {fontSize: 20}}} 
-                      style={{ marginTop:parent_margin_top,width:parent_width,fontSize:'25px',height:'80px',marginBottom:parent_margin_bottom  }}
+                      style={{ marginTop:parent_margin_top,width:parent_width,fontSize:'25px',
+                      height:'80px'  }}
                       InputProps={{
                         style: {fontSize: 20, fontFamily:"Ubuntu" },
                         startAdornment: (
@@ -123,33 +85,36 @@ const CreateBlog = () => {
                           </InputAdornment>
                         ),
                       }}
-                      value={blogData.title}
-                      onChange={(e) => setBlogData({...blogData,title:e.target.value})}
+                       value={DiscData.title}
+                       onChange={(e) => setDiscData({...DiscData,title:e.target.value})}
                   
               />
               <br></br>
 
-              <div className="auto__complete">
+              <div className="auto__complete"   style={{ marginBottom:'2vh'}} >
                     <Autocomplete
                         multiple
                         id="size-small-outlined-multi"
                         size="large"
                         options={toptags}
+                        
+                        // onChange={(_event, value) => console.log(value)} 
                         getOptionLabel={(option) => option.title}
                         renderInput={(params) => (
                           <TextField {...params} label="Tag(s)" placeholder="Choose/Type letters" />
                         )}
                         onChange={handleTags}
+                        // onChange={(e,value) => setBlogData({...blogData,tags:JSON.stringify(value)})}
                     />
               </div>  
 
               <br/>
               <TextField id="outlined-basic"
                   variant="standard"  
-                  defaultValue="Body"
+                  defaultValue="write your Discussion"
                   color="secondary"
                   InputLabelProps={{style: {fontSize: 25}}} 
-                  style={{ marginTop:-1.5,width:parent_width,fontSize:'25px',height:'80px',marginBottom:-10, opacity:100,marginLeft:10,  }}
+                  style={{ marginTop:-2.5,width:parent_width,fontSize:'25px',height:'80px',marginBottom:-10, opacity:100,marginLeft:10,  }}
                   InputProps={{
                     
                     readOnly: true,
@@ -165,7 +130,6 @@ const CreateBlog = () => {
               />
               <br/>
               <div className="EditorClass" >
-            
               <CKEditor  
                   editor={ClassicEditor}
                   name="editor1"
@@ -181,10 +145,13 @@ const CreateBlog = () => {
                   }}
                   
                   config={
+                    
                     {
                       ckfinder:{
-                        uploadUrl: '/blogs/upload'
+                        uploadUrl: '/discussion/upload'
+                        
                       },
+
                     }
                   }
                   
@@ -195,18 +162,16 @@ const CreateBlog = () => {
               <Button 
                   size="large" id="submit_button" 
                   variant="outlined" color="primary"
-                  // style={{  backgroundColor: '#212121', color:'#fafafa' }}
+                  style={{  backgroundColor: '#212121', color:'#fafafa', marginLeft:'500px' }}
                   startIcon={<PublishIcon />}
                   type='submit'
               > Post 
               </Button>
           </form>
-          <ToastContainer/>
         </Paper>
-       
     )
 };
 
-export default CreateBlog;
+export default CreateDiscussion;
 
 

@@ -7,11 +7,13 @@ const images = [
     url: '/static/images/cards/blog.jpg',
     title: 'Blogs',
     width: '50%',
+    link : '/blogs'
   },
   {
     url: '/static/images/cards/qa.jpg',
     title: 'Q/A',
     width: '50%',
+    link : '/discussion'
   },
 ];
 
@@ -30,7 +32,7 @@ const Home = () => {
           style={{
             width: image.width,
           }}
-          onClick={(e)=> {window.location.assign('/blogs')}} 
+          onClick={(e)=> {window.location.assign(`${image.link}`)}} 
         >
 
           <span
@@ -38,6 +40,7 @@ const Home = () => {
             style={{
               backgroundImage: `url(${image.url})`,
             }}
+            
           />
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
@@ -47,6 +50,7 @@ const Home = () => {
               color="inherit"
               className={classes.imageTitle}
             >
+              
               {image.title}
               <span className={classes.imageMarked} />
             </Typography>

@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 
 import blogRoutes from './routes/blogs.js';
 import userRoutes from './routes/users.js';
+import discRoutes from './routes/discs.js';
+import commRoutes from './routes/comment.js';
 
 const app = express();
 app.options('*', cors());
@@ -21,6 +23,8 @@ app.use(express.urlencoded({ limit: "100mb", extended: true}));
 
 app.use('/blogs',blogRoutes);
 app.use('/users',userRoutes);
+app.use('/discussion',discRoutes);
+app.use('/comment',commRoutes);
 
 dotenv.config({path: './config.env'});
 

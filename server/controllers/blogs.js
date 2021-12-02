@@ -29,7 +29,7 @@ export const getSingleBlog = async(req,res) => {
 
 export const createBlogs = async (req,res) => {
     const blog = req.body;
-    console.log(req.body);
+    console.log(blog);
     const newBlog = new Blogs(blog);
 
     try {

@@ -14,6 +14,13 @@ import NewBlog from "./components/Blogs/CreateBlog.js";
 import EditProfile from "./components/Profile/EditProfile.js";
 import About from "./components/About/About.js";
 
+/////// JoyDIp
+import NewDiscussion from "./components/DiscussionList/CreateDiscussion.js";
+import Discussions from "./components/DiscussionList/DiscussionList.js";
+import SingleDiscPage from './components/DiscussionList/SingleDisc/SingleDisc';
+import {getDisc} from './actions/discussionList';
+
+
 import Post from "./components/Blogs/SingleBlogPage/SingleBlogPage.js";
 
 const App = () => {
@@ -22,6 +29,7 @@ const App = () => {
 
   useEffect(() =>{
     dispatch(getBlogs());
+    dispatch(getDisc());
   },[dispatch]);
 
   return (
@@ -37,6 +45,10 @@ const App = () => {
           <Route path="/about" exact component={About}/>
           <Route path="/edit" exact component={EditProfile}/>
           <Route path="/blog/:blogid" exact component={Post}/>
+
+          <Route path="/new-disc" exact component={NewDiscussion}/>
+          <Route path="/discussion" exact component={Discussions} />
+          <Route path="/discussion/:discussionid" exact component={SingleDiscPage}/>
         </Switch>
       </Container>
     </BrowserRouter>

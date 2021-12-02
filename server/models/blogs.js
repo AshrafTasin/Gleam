@@ -1,10 +1,13 @@
 import mongoose from 'mongoose';
 
 const blogSchema = mongoose.Schema({
-
+    // _id: type(Object._id),
     title : String,
     body : String,
-    author : String,
+    authorName : String,
+    authorID : String,
+    authorAbout : String,
+    authorImage : String,
     tags : [String],
     //selectedFile : String,
     likeCount :{

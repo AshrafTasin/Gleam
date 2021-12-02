@@ -10,12 +10,17 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import "./singleBlogPage.css";
 import { updateBlog } from '../../../api';
 
+
+
 const SingleBlogPage = () => {
   const parent_margin_top='5vh';
 
   const dispatch = useDispatch();
   const location = useLocation();
 
+  //////////
+   
+  ////////
   const id = location.pathname.split("/")[2];
   
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -46,8 +51,10 @@ const SingleBlogPage = () => {
     const data = editor.getData();
     console.log(user.result)
     setBlog({
-      ...blog, body: data,author:user.result.name
+      ...blog, body: data,authorID:user.result._id,authorName:`${user.result.firstName} ${user.result.lastName}`,
+      authorAbout:user.result.about,authorImage:user.result.profilePicture
     })
+    // console.log(`${user.result.firstName} ${user.result.lastName}`)
   };
 
     return (
@@ -69,7 +76,7 @@ const SingleBlogPage = () => {
         ) : (
           <h1 className="singlePostTitle">
             {blog.title}
-            {blog.author === user?.result.name && (
+            {blog.authorID === user?.result._id && (
               <div className="singlePostEdit">
                 <i
                   className="singlePostIcon far fa-edit"
@@ -87,7 +94,7 @@ const SingleBlogPage = () => {
           <span className="singlePostAuthor">
             Author:
             <Link to='/blogs' className="link">
-              <b> {blog.author}</b>
+              <b> {blog.authorName}</b>
             </Link>
           </span>
           <span className="singlePostDate">
@@ -128,7 +135,10 @@ const SingleBlogPage = () => {
           </button>
         )}
       </div>
+
     </div>
-      );
+
+      
+    );
 }
 export default SingleBlogPage;
