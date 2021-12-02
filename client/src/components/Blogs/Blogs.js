@@ -4,7 +4,7 @@ import {Grid,CircularProgress} from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
 const Blogs = () => {
-    const blogs= useSelector((state) => state.blogs);
+    const blogs= useSelector((state) => state.blogReducers);
 
     return (
         !blogs.length ? <CircularProgress/> :(

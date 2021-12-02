@@ -22,3 +22,4 @@ export const updateBlog = (blog) => API.put(`/blogs/${blog._id}`, blog);
 
 export const signIn = (formData) => API.post('/users/signin',formData);
 export const signUp = (formData) => API.post('/users/signup',formData);
+export const updateUser = (updatedInfo) => API.put('/users/'+updatedInfo.id,updatedInfo);

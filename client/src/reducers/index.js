@@ -1,8 +1,9 @@
 import { combineReducers } from 'redux';
 
-import auth from './auth';
-import blogs from './blogs';
+import {authReducers} from './auth';
+import blogReducers from './blogs';
+import {userReducers} from './user'
 
 export const reducers = combineReducers({
-    auth,blogs
+    authReducers,userReducers,blogReducers
 }); 
