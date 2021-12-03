@@ -80,15 +80,7 @@ const CreateBlog = () => {
 
     const handleSubmit = (event) =>{
         event.preventDefault();
-        // console.log(user)
-        // setBlogData({
-        //   ...blogData,authorID:user.result._id,authorName:`${user.result.firstName} ${user.result.lastName}`,
-        //   authorAbout:user.result.about,authorImage:user.result.profilePicture
-        // })
-        // setBlogData({
-        //   ...blogData,authorID:user.result._id,authorName:`${user.result.firstName} ${user.result.lastName}`
-        // })
-        // console.log(blogData)
+        
         dispatch(createBlog(blogData));
         notify();
         window.location.replace('/blogs');

@@ -1,27 +1,26 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-
+import {generateToken,mailSender} from '../utils/mail.js';
 import User from '../models/user.js';
+import VerificationToken from '../models/verificationToken.js';
 
 export const signIn = async (req,res) => {
 
     const {email,password} = req.body;
     
     try {
-        console.log("1");
         const existingUser = await User.findOne({ email });
-        console.log("2");
 
         if(!existingUser){
             return res.status(404).json({message: "User Doesn't Exist!"});
         }
-        console.log("3");
+
         const passwordMatch = await bcrypt.compare(password,existingUser.password);
-        console.log("4");
+        
         if(!passwordMatch){
             return res.status(400).json({message:"Invalid Credentials"});
         }
-        console.log("5");
+       
         const token = jwt.sign({
             email : existingUser.email,
             id: existingUser._id },
@@ -41,48 +40,126 @@ export const signUp = async (req,res) => {
     
     const {email,password,confirmPassword,firstName,lastName} = req.body;
 
-    //console.log(`${password} ${confirmPassword}`);
-
     try {
-        console.log("1");
+        
         const existingUser = await User.findOne({email});
-        console.log("2");
-
+        
         if(existingUser){
             return res.status(400).json({message: "User Already Exists!"});
         }
-        console.log("3");
-
+        
         if(password !== confirmPassword ) {
             return res.status(400).json({message: "Passwords don't match"});
         }   
-
-        console.log("4");
-
+        
         const hashedPassword = await bcrypt.hash(password,12);
 
-        console.log("5");
+        //////
+        
         const result = await User.create({
             email,
             password: hashedPassword,
             firstName,
             lastName
         });
-        console.log("6");
-        const token = jwt.sign({
+        
+        const otp = generateToken();
+        
+        const tokenResult = await VerificationToken.create({
+            owner:result._id,
+            token:otp
+        }); 
+
+        mailSender().sendMail({
+            from:'d3v3lop3m3nt@gmail.com',
+            to:result.email,
+            subject:'Account Verification',
+            html:`<h1>${otp}</h1>`
+        })
+ 
+        const jwtoken = jwt.sign({
             email : result.email,
             id: result._id },
             'secretString',{
                 expiresIn : "1h"
             }
         );
-
-        res.status(200).json({ result: result,token});
+        
+        res.status(200).json({ result: result,jwtoken});
 
     } catch (error) {
         res.status(500).json({ message: "Something Went Wrong!" });
     }
 };
+
+
+export const verifyEmail =  async(req,res) => {
+    const {userID,otp} = req.body;
+    console.log(req.body);
+
+    if(!userID || !otp.trim()) return res.send({message: "Missing Parameters"});
+
+    try {
+        const user = await User.findById(userID);
+       
+        if(!user) return res.status(404).json({message : "User Not Found"});
+
+        if(user.isVerified) return res.send({message: "Account already verified"});
+
+        const verifiedToken = await VerificationToken.findOne({owner:user._id});
+
+        if(!verifiedToken) return res.status(404).json({message : "Token Not Fund"});
+
+        if(otp===verifiedToken.token){
+            await VerificationToken.findByIdAndDelete(verifiedToken._id);
+    
+            const result = await User.findByIdAndUpdate(userID,
+                {
+                    $set: {isVerified:true},
+                },
+                { new: true });
+            
+                return res.status(200).json({ result: result});
+        }else{
+            return res.send({message: "Invalid userID"});
+
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Something Went Wrong!" });
+    }
+};
+
+
+export const passwordReset = async(req,res) => {
+    console.log(req.body);
+    const {email} = req.body;
+    console.log(email);
+    
+
+    try {
+        
+        const existingUser = await User.findOne({email});
+        const url= "http://localhost:3000/redirected"
+        
+        if(!existingUser){
+            return res.status(400).json({success:false,message: "User Already Exists!"});
+        }
+
+        mailSender().sendMail({
+            from:'d3v3lop3m3nt@gmail.com',
+            to:email,
+            subject:'Account Verification',
+            html:`<a href=${url} target="_blank">Click to Reset Password</a>`
+           
+        })
+
+        res.status(200).json({ success:true,message:"Reset Link Sent"});
+
+    } catch (error) {
+        res.status(500).json({ success: false,message: "Something Went Wrong!" });
+    }
+}
+
 
 export const updatedUser = async(req,res) => {
     const {id,firstName,lastName,email,password,about} = req.body;
@@ -103,13 +180,6 @@ export const updatedUser = async(req,res) => {
             },
             { new: true });
 
-        // const token = jwt.sign({
-        //     email : result.email,
-        //     id: result._id },
-        //     'secretString',{
-        //         expiresIn : "1h"
-        //     }
-        // );
         console.log(result);
         res.status(200).json({ result: result});
 
@@ -117,3 +187,4 @@ export const updatedUser = async(req,res) => {
         res.status(500).json({ message: "Something Went Wrong!" });
     }
 };
+

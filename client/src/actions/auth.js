@@ -20,11 +20,23 @@ export const signup = (formData,history) => async (dispatch) => {
         const { data } = await api.signUp(formData);
 
         dispatch({type: AUTH,data});
-        history.push('/');
+        history.push('/verification');
     } catch (error) {
         console.log(error);
     }
 };
+
+export const verification = (userData,history) => async(dispatch) => {
+    try{
+        console.log(userData);
+        const { data } = await api.verifyUser(userData);
+        console.log(data);
+        dispatch({type: 'VERIFY',data});
+        history.push('/');
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 export const updateBlog = (blog) => async (dispatch) => {
     try {
@@ -33,5 +45,5 @@ export const updateBlog = (blog) => async (dispatch) => {
     } catch (error) {
       console.log(error);
     }
-  };
+};
 

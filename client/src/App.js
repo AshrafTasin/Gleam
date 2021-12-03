@@ -13,6 +13,11 @@ import Blogs from "./components/Blogs/Blogs.js";
 import NewBlog from "./components/Blogs/CreateBlog.js";
 import EditProfile from "./components/Profile/EditProfile.js";
 import About from "./components/About/About.js";
+import Verification from "./components/Auth/Verification.js";
+import NewPassword from "./components/Auth/NewPassword.js";
+import PasswordReset from "./components/Auth/PasswordReset.js";
+import Confirmation from "./components/Auth/Confirmation.js";
+
 
 /////// JoyDIp
 import NewDiscussion from "./components/DiscussionList/CreateDiscussion.js";
@@ -45,6 +50,10 @@ const App = () => {
           <Route path="/about" exact component={About}/>
           <Route path="/edit" exact component={EditProfile}/>
           <Route path="/blog/:blogid" exact component={Post}/>
+          <Route path='/verification' exact component={Verification}/>
+          <Route path='/redirected' exact component={NewPassword} />
+          <Route path='/reset-password'exact component={PasswordReset} />
+          <Route path='/confirmation' exact component={Confirmation} />
 
           <Route path="/new-disc" exact component={NewDiscussion}/>
           <Route path="/discussion" exact component={Discussions} />

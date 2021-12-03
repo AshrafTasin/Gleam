@@ -3,7 +3,7 @@ import { Avatar,Button,Grid,Paper,Typography,Container, Icon } from "@material-u
 import LockOutlinedIcon from "@material-ui/icons/LockOpenOutlined"
 import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux"; 
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
 import { signin,signup } from '../../actions/auth';
 import Input from "./Input";
 // import icon from "./Icon"
@@ -90,7 +90,7 @@ const Auth = () => {
                         {isSignUp ? "Sign Up" : "Sign In"}
                     </Button>
 
-                    <GoogleLogin 
+                    {/* <GoogleLogin 
                         clientId="630287535020-c7horr7mrrt0scr4mjhvjuvuehnn2nr4.apps.googleusercontent.com"
                         render={(renderProps) => (
                             <Button
@@ -110,7 +110,7 @@ const Auth = () => {
                         onFailure={googleFailure}
                         cookiePolicy={"single_host_origin"}
 
-                    />
+                    /> */}
 
 
 
@@ -120,6 +120,11 @@ const Auth = () => {
                             <Button onClick={switchMode}>
                                 {isSignUp ? "Already have an account ? Sign In" : "Need an account ? Sign Up"}
                             </Button>
+                            <Link to='/reset-password'>
+                                <Button>
+                                    forgot pass?
+                                </Button>
+                            </Link>
                         </Grid>
 
                     </Grid>
