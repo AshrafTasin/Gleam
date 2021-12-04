@@ -15,7 +15,11 @@ const Blogs = () => {
 
     return (
         
-        !blogs.length ? <CircularProgress/> :(
+        !blogs.length ? <CircularProgress size={40}
+        left={-20}
+        top={10}
+        status={'loading'}
+        style={{marginLeft: '50%',marginTop:'20%'}} /> :(
             <Grid container>
                 {blogs.map((blog)=>(
                     <Grid key={blog._id} item xs={12} sm={6}>

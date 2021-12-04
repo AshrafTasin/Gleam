@@ -1,0 +1,12 @@
+.containered {
+    min-height: 50vh;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageArea{
+  object-fit: contain;
+}

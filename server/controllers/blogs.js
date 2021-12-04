@@ -20,7 +20,6 @@ export const getBlogs = async (req,res)=> {
 export const getSingleBlog = async(req,res) => {
         try {
           const blog = await Blogs.findById(req.params.id);
-          console.log("Post Pawa gsssese");
           res.status(200).json(blog);
         } catch (err) {
           res.status(500).json(err);
@@ -29,12 +28,15 @@ export const getSingleBlog = async(req,res) => {
 
 export const createBlogs = async (req,res) => {
     const blog = req.body;
-    console.log(blog);
-    const newBlog = new Blogs(blog);
+    
 
     try {
-        console.log("Trying ");
+        const newBlog = new Blogs(blog);  
+          console.log("FUUU "+blog);
+
+        
         await newBlog.save();
+        console.log("Trying ");
 
         res.status(201).json(newBlog);
 

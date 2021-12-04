@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import { Avatar,Button,Grid,Paper,Typography,Container, Icon } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOpenOutlined"
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,6 +14,13 @@ import useStyles from './styles';
 const initialState ={firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
+
+
+    useEffect(()=>{
+        if(localStorage.getItem('profile')){
+            history.push('/');
+        }
+    })
 
     const classes = useStyles();       
 

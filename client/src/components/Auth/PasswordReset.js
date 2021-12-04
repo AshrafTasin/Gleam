@@ -1,19 +1,14 @@
 import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Avatar,Button,Typography,Container,Grid } from "@material-ui/core";
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import LockOutlinedIcon from "@material-ui/icons/LockOpenOutlined"
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { useDispatch } from "react-redux"; 
 import { useHistory,useLocation } from 'react-router-dom';
 import axios from 'axios';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: '25ch',
-    },
-  },
-}));
+import useStyles from './styles';     
 
 
 const Verification = () => {
@@ -34,7 +29,8 @@ const Verification = () => {
         event.preventDefault();
         console.log(email);
         const getLink = async () => {
-            const res = await axios.post('http://localhost:5000/users/reset-password',{'mail':email});
+            //const body = {mail:email};
+            const res = await axios.post('http://localhost:5000/users/reset-password',{email:email});
             console.log(res);
         };
         getLink();
@@ -42,10 +38,23 @@ const Verification = () => {
     }
 
     return (
-        <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-            <TextField id="outlined-basic" label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)} />
-             <Button type="submit"> Submit </Button>
-      </form>  
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+                Enter your email id
+            </Typography>
+            <Grid container spacing={2}>
+              <form className={classes.form} noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <TextField id="outlined-basic" label="Email" variant="outlined" onChange={(e) => setEmail(e.target.value)} />
+                <Button type="submit"> Submit </Button>
+              </form> 
+            </Grid>
+          </div>
+      </Container> 
     )
 }
 

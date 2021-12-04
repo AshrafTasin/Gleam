@@ -17,6 +17,7 @@ import Verification from "./components/Auth/Verification.js";
 import NewPassword from "./components/Auth/NewPassword.js";
 import PasswordReset from "./components/Auth/PasswordReset.js";
 import Confirmation from "./components/Auth/Confirmation.js";
+import Protected from "./Protected.js"; 
 
 
 /////// JoyDIp
@@ -46,7 +47,9 @@ const App = () => {
           <Route path="/" exact component={Home} /> 
           <Route path="/auth" exact component={Auth} />
           <Route path="/blogs" exact component={Blogs} />
-          <Route path="/new-blog" exact component={NewBlog}/>
+          <Route path="/new-blog">
+            <Protected component={NewBlog} />
+          </Route>
           <Route path="/about" exact component={About}/>
           <Route path="/edit" exact component={EditProfile}/>
           <Route path="/blog/:blogid" exact component={Post}/>

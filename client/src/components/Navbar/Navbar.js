@@ -169,8 +169,8 @@ const Navbar = () => {
 
 
     return (
-      <div className={classes.grow}>
-        <AppBar position="static" >
+      <div className={classes.grow} style={{width:"100%",paddingBottom:"9vh"}}>
+        <AppBar position="fixed" style={{background:"#212121"}}>
           <Toolbar>
             {/* <Typography className={classes.title} variant="h6" noWrap>
               Gleam

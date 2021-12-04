@@ -142,7 +142,7 @@ export const passwordReset = async(req,res) => {
         const url= "http://localhost:3000/redirected"
         
         if(!existingUser){
-            return res.status(400).json({success:false,message: "User Already Exists!"});
+            return res.status(400).json({success:false,message: "User Doesn't Exists!"});
         }
 
         mailSender().sendMail({

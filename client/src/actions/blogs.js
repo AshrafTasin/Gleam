@@ -15,8 +15,8 @@ export const getBlogs = () => async (dispatch) => {
 export const createBlog = (blog) => async (dispatch) => {
     try {
         console.log("CREATE action e dhukse");
-        const data = await api.createBlog(blog);
-        console.log("BER HOISE");
+        const {data} = await api.createBlog(blog);
+        console.log(data);
         dispatch({type:'CREATE',payload: data});
     } catch (error) {
         console.log("BLOG ERRO")

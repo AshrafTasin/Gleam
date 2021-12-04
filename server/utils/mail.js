@@ -35,7 +35,7 @@ export const mailSender = () =>  {
               accessToken: "ya29.a0ARrdaM_ZQ1A4louhF1vwzyc60VuW-x2GWz7VEdNnJMtC6uoBMjIiueJoZT8btGL8aKTm_mzpaTG5QOlEUzsfLftuyY6OMr9JIM7lLX1XU9o9eAcw9zus8z-QOkO7LGRUF4wPv20Jyxp9xDRIpZa3DwO9aUDh"            
             }
         });
-        
+        console.log("x2");
     } catch (error) {
         console.log(error.message)
     }
