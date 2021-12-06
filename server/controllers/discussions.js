@@ -1,11 +1,14 @@
 import DiscussionProto from '../models/discussionProto.js';
+import path from 'path';
+import fs from 'fs';
+
 
 
 export const getDisc = async (req,res)=> {
    try{
 
     const Discussion = await DiscussionProto.find();
-    console.log(" getDISC >> "+Discussion);
+    //console.log(" getDISC >> ");
     res.status(200).json(Discussion);
 
    }catch (error) {

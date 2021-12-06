@@ -9,9 +9,30 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import "./SingleDisc.css";
 import { updateDisc } from '../../../api';
+import Comment from '../../Comment/Comment' 
+
 
 const SingleDiscPage = () => {
   const parent_margin_top='5vh';
+
+  const [CommentLists, setCommentLists]= useState([]);
+  const updateComment= (newComment)=>{
+      
+      setCommentLists(CommentLists.concat(newComment))
+  }
+
+  const getComments =  () => {
+      const res =  axios.get("http://localhost:5000/comment/getComments")
+      .then( (e)=>{
+          console.log(e.data);
+          ///console.log(JSON.stringify(e.data));
+          setCommentLists((e.data));
+          return e.data;  
+      });
+     //chk browser
+      //return JSON.stringify(res);
+  };
+  getComments();
 
   const dispatch = useDispatch();
   const location = useLocation();
@@ -128,6 +149,11 @@ const SingleDiscPage = () => {
           </button>
         )}
       </div>
+
+
+      <Comment CommentLists={CommentLists}
+         postId={id}  refreshFunction={updateComment}/>
+        
     </div>
       );
 }

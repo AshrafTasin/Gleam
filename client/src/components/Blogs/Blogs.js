@@ -1,79 +1,34 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+import React from 'react';
+import Blog from './Blog/Blog';
+import {Grid,CircularProgress} from '@material-ui/core';
+import { useSelector } from 'react-redux';
 
-import React from 'react'
+///
+
+
+
 const Blogs = () => {
+    const blogs= useSelector((state) => state.blogReducers);
+
+    ////
+
+
     return (
-        <div>
-            
-        </div>
-    )
-}
-
-export default Blogs
-=======
-=======
->>>>>>> DiscussionWOrks
-import React from 'react';
-import Blog from './Blog/Blog';
-import { useSelector } from 'react-redux';
-import Comment from '../Comment/Comment'
-import  { useEffect, useState } from "react";
-
-
-const Blogs = () => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import React from 'react';
-import Blog from './Blog/Blog';
-import { useSelector } from 'react-redux';
-import Comment from '../Comment/Comment'
-import  { useEffect, useState } from "react";
-const Blogs = () => {
-=======
->>>>>>> blog/disc !
-
-    const [CommentLists, setCommentLists]= useState([]);
-    const updateComment= (newComment)=>{
         
-        setCommentLists(CommentLists.concat(newComment))
-    }
-<<<<<<< HEAD
->>>>>>> comment
-=======
->>>>>>> DiscussionWOrks
-=======
->>>>>>> blog/disc !
-    const blogs=useSelector((state) => state.blogs);
-    console.log(blogs);
-    return (
-        <>
-        <Blog />
-        <Blog />
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        <Comment CommentLists={CommentLists}
-         postId={"ooo"}  refreshFunction={updateComment}/>
->>>>>>> comment
-=======
->>>>>>> DiscussionWOrks
-=======
-        <Comment CommentLists={CommentLists}
-         postId={"ooo"}  refreshFunction={updateComment}/>
->>>>>>> blog/disc !
-        </>
-    )
+        !blogs.length ? <CircularProgress size={40}
+        left={-20}
+        top={10}
+        status={'loading'}
+        style={{marginLeft: '50%',marginTop:'20%'}} /> :(
+            <Grid container>
+                {blogs.map((blog)=>(
+                    <Grid key={blog._id} item xs={12} sm={6}>
+                        <Blog blog={blog}/>  
+                    </Grid>
+                ))}
+            </Grid>
+        
+    ));
 }
 
 export default Blogs;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> discuss works
-=======
->>>>>>> comment
-=======
->>>>>>> DiscussionWOrks

@@ -1,12 +1,16 @@
 import mongoose from 'mongoose';
 
 const blogSchema = mongoose.Schema({
-
+    // _id: String,
     title : String,
     body : String,
-    author : String,
+    authorName : String,
+    authorID : String,
+    authorAbout : String,
+    authorImage : String,
     tags : [String],
-    //selectedFile : String,
+    summary: String,
+    coverPhoto : String,
     likeCount :{
         type : Number,
         default: 0

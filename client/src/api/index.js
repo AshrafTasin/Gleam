@@ -1,16 +1,4 @@
 import axios from 'axios';
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-// const url="http://localhost:5000/blogs/getBlogs";
->>>>>>> discuss works
-=======
-// const url="http://localhost:5000/blogs/getBlogs";
->>>>>>> comment
-=======
-// const url="http://localhost:5000/blogs/getBlogs";
->>>>>>> DiscussionWOrks
 
 const API = axios.create({baseURL : "http://localhost:5000"});
 
@@ -25,46 +13,28 @@ API.interceptors.request.use( (req) => {
 });
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-export const signIn = (formData) => API.post('/users/signin',formData);
-export const signUp = (formData) => API.post('/users/signup',formData);
-=======
-=======
->>>>>>> comment
-=======
->>>>>>> DiscussionWOrks
 export const fetchBlogs = () => API.get('/blogs/getBlog');
 export const createBlog = (newBlog) => API.post('/blogs/createBlog',newBlog);
+export const fetchSingleBlog = (id) => API.get('/blogs/'+id);
+export const upload = (data) => API.post('/blogs/upload',data);
+export const deleteBlog = (id) => API.delete(`/blogs/${id}`)
+export const updateBlog = (blog) => API.put(`/blogs/${blog._id}`, blog);
 
 export const signIn = (formData) => API.post('/users/signin',formData);
 export const signUp = (formData) => API.post('/users/signup',formData);
+export const updateUser = (updatedInfo) => API.put('/users/'+updatedInfo.id,updatedInfo);
+export const verifyUser = (userData) => API.post('/users/verify-email',userData);
+
+//Joydip
 
 
 export const fetchDiscList = () => API.get('/discussion/getDisc');
-<<<<<<< HEAD
-<<<<<<< HEAD
-export const createDisc = (newDisc) => API.post('/discussion/createDisc',newDisc);
-<<<<<<< HEAD
->>>>>>> discuss works
-=======
-export const fetchADiscussion = (id) => API.get('/discussion/'+id);
-=======
 export const createDisc = (newDisc) => API.post('/discussion/createDisc',newDisc);
 export const fetchADiscussion = (id) => API.get('/discussion/'+id);
-export const upload = (data) => API.post('/discussion/upload',data);
+export const uploadDisc = (data) => API.post('/discussion/upload',data);
 export const deleteDisc = (id) => API.delete(`/discussion/${id}`)
 export const updateDisc = (disc) => API.put(`/discussion/${disc._id}`, disc);
->>>>>>> blog/disc !
 
 
 export const createComment = (newComm) => API.post('/comment/saveComment',newComm);
 export const getComments = () => API.get('/comment/getComments');
-<<<<<<< HEAD
->>>>>>> comment
-=======
-export const createDisc = (newDisc) => API.post('/discussion/createDisc',newDisc);
->>>>>>> DiscussionWOrks
-=======
->>>>>>> blog/disc !

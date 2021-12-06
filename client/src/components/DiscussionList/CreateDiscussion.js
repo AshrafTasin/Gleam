@@ -1,18 +1,49 @@
-import React, {useState} from 'react';
+import React, {useState,useRef,useEffect} from 'react';
 import { Paper,Grid,TextField,InputAdornment,Button } from '@material-ui/core';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import AirplayIcon from '@material-ui/icons/Airplay'; 
 import PublishIcon from '@material-ui/icons/Publish';
 import {useDispatch} from 'react-redux';
 import {createDisc}  from '../../actions/discussionList';
+import Box from '@mui/material/Box';
+import   './CreateDiscussion.css';
+
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
 const CreateDiscussion = () => {
 
+  const [open, setOpen] = useState(false);
+  
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+///////////////////////////////////////////////////
+    
+
+
+    let x=0;
     const parent_width=1080;
     const parent_margin_top='5vh';
     const parent_margin_bottom='3vh';
@@ -31,10 +62,33 @@ const CreateDiscussion = () => {
     
 
     // const classes = useStyles();
+    ////
+    const [image, setImage] = useState(null);
+    const [preview, setPreview] = useState('');
+    const fileInputRef = useRef(HTMLInputElement);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+
+
+    useEffect(() => {
+      if (image) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreview(reader.result);
+          // setBlogData({
+          //   ...blogData,coverPhoto:reader.result
+          // })
+          console.log(reader.result);
+        };
+        reader.readAsDataURL(image);
+      } else {
+        setPreview(null);
+      }
+    }, [image]);
 
     const [DiscData,setDiscData] = useState({
         title:'',tags:'',body:'1' 
     });
+
 
    const dispatch = useDispatch();
 
@@ -54,7 +108,8 @@ const CreateDiscussion = () => {
     const handleSubmit = (event) =>{
         event.preventDefault();
         console.log(JSON.stringify(DiscData));
-        dispatch(createDisc(DiscData)); 
+        dispatch(createDisc(DiscData));
+        window.location.replace('/discussion');
     }
 
     const handleCkeditor = (event,editor) => {
@@ -68,19 +123,75 @@ const CreateDiscussion = () => {
 
         <Paper>
           <form autoComplete='off' noValidate onSubmit={handleSubmit}>
+          
+
+        <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
+        {preview ? (
+
+          <img id="coverpic"
+            // style={{height:"271px",maxheight: "336px",
+            //  max-width:"336px",
+            //  width: "263px",}}
+            src={preview}
+            className="imageArea"
+            onClick={() => { 
+              
+              setImage(null); 
+            
+            }}
+          />
+          ) : (
+          <button style={{ width:"97%",  marginBottom:'1vh' , marginTop:'3vh'  }}
+            onClick={(event) => {
+              event.preventDefault();
+              fileInputRef.current.click();
+              
+            }}
+          >Add Cover Pic
+          </button>
+           )}
+        </Box>
+        <input
+          type="file"
+          style={{ display: "none" }}
+          ref={fileInputRef}
+          accept="image/*"
+          onChange={(event) => {
+            const file = event.target.files[0];
+            if (file && file.type.substr(0, 5) === "image") {
+              setImage(file);
+              console.log(fileInputRef);
+              setOpen(true);
+
+
+            } else {
+              setImage(null);
+            }
+          }}
+          
+        />
+        <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Image Uploaded ! Click Again to Remove it"
+        action={action}
+       />
+         
               <TextField name="dis_title" 
                       id="outlined-basic" 
                       label="Question/Discussion Title" 
                       variant="outlined"  
-                      color="secondary"
+                      color="primary"
+                      required
                       InputLabelProps={{style: {fontSize: 20}}} 
-                      style={{ marginTop:parent_margin_top,width:parent_width,fontSize:'25px',
+                      style={{ marginTop:parent_margin_top,width:'100%',fontSize:'25px',
                       height:'80px'  }}
                       InputProps={{
                         style: {fontSize: 20, fontFamily:"Ubuntu" },
                         startAdornment: (
                           <InputAdornment position="start">
-                            <TextFieldsIcon />
+                           
                           </InputAdornment>
                         ),
                       }}
@@ -88,9 +199,27 @@ const CreateDiscussion = () => {
                        onChange={(e) => setDiscData({...DiscData,title:e.target.value})}
                   
               />
-              <br></br>
-
-              <div className="auto__complete"   style={{ marginBottom:'2vh'}} >
+            
+              <TextField name="dis_sum" 
+                      id="outlined-basic" 
+                      label="Short Summary" 
+                      variant="outlined"  
+                      color="primary"
+                      InputLabelProps={{style: {fontSize: 20}}} 
+                      style={{ marginTop:'2vh',width:'100%',fontSize:'25px',
+                      height:'80px'  }}
+                      InputProps={{
+                        style: {fontSize: 20, fontFamily:"Ubuntu" },
+                        startAdornment: (
+                          <InputAdornment position="start">
+                          </InputAdornment>
+                        ),
+                      }}
+                       value={DiscData.summary}
+                       onChange={(e) => setDiscData({...DiscData,title:e.target.value})}
+                  
+              />
+              {/* <div className="auto__complete"   style={{ marginBottom:'2vh'}} >
                     <Autocomplete
                         multiple
                         id="size-small-outlined-multi"
@@ -105,31 +234,21 @@ const CreateDiscussion = () => {
                         onChange={handleTags}
                         // onChange={(e,value) => setBlogData({...blogData,tags:JSON.stringify(value)})}
                     />
-              </div>  
+              </div>   */}
 
               <br/>
-              <TextField id="outlined-basic"
+              <TextField 
                   variant="standard"  
-                  defaultValue="write your Discussion"
-                  color="secondary"
+                  defaultValue="Write your Discussion"
                   InputLabelProps={{style: {fontSize: 25}}} 
-                  style={{ marginTop:-2.5,width:parent_width,fontSize:'25px',height:'80px',marginBottom:-10, opacity:100,marginLeft:10,  }}
-                  InputProps={{
-                    
-                    readOnly: true,
-                    style: {fontSize: 17, fontFamily:"Ubuntu" },
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <AirplayIcon />
-                      </InputAdornment>
-                    ),
-                
-                  }}
+                  style={{ marginTop:-2.5,width:'98%',fontSize:'25px',height:'80px',marginBottom:-48, opacity:100  }}
                   
               />
               <br/>
               <div className="EditorClass" >
-              <CKEditor  
+              {
+                user?(
+                  <CKEditor  
                   editor={ClassicEditor}
                   name="editor1"
                   
@@ -147,7 +266,8 @@ const CreateDiscussion = () => {
                     
                     {
                       ckfinder:{
-                        uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
+                        uploadUrl: '/discussion/upload'
+                        
                       },
 
                     }
@@ -155,6 +275,8 @@ const CreateDiscussion = () => {
                   
                   onChange={handleCkeditor}> 
               </CKEditor>
+                ) : <></>
+              }
               </div>
 
               <Button 
@@ -171,5 +293,16 @@ const CreateDiscussion = () => {
 };
 
 export default CreateDiscussion;
+
+
+
+
+
+
+
+/////////////////////////////////
+
+
+
 
 

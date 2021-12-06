@@ -1,24 +1,3 @@
-<<<<<<< HEAD
-import React, { useContext, useEffect, useState } from 'react';
-import { Link } from "react-router-dom";
-import { useLocation } from 'react-router';
-import { useDispatch,useSelector } from 'react-redux';
-import ReactHtmlParser from 'react-html-parser';
-import { getSingleBlog } from '../../../actions/blogs';
-import axios from 'axios';
-import "./singleBlogPage.css";
-import HtmlParser from 'react-html-parser';
-
-const SingleBlogPage = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  const [blog, setBlog] = useState({
-    blog:''
-  });
-
-  useEffect(() => {
-=======
 import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router';
@@ -31,12 +10,17 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import "./singleBlogPage.css";
 import { updateBlog } from '../../../api';
 
+
+
 const SingleBlogPage = () => {
   const parent_margin_top='5vh';
 
   const dispatch = useDispatch();
   const location = useLocation();
 
+  //////////
+   
+  ////////
   const id = location.pathname.split("/")[2];
   
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -45,48 +29,11 @@ const SingleBlogPage = () => {
 
   
   useEffect(() => {
-    
->>>>>>> blog/disc !
     const getPost = async () => {
       const res = await axios.get("http://localhost:5000/blogs/" + id);
       setBlog(res.data);
     };
     getPost();
-<<<<<<< HEAD
-  },[id]);
-
-    return (
-        <div className="singlePost">
-          <div className="singlePostWrapper">
-            <img
-              className="singlePostImg"
-              src="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-            />
-            <h1 className="singlePostTitle">
-              {blog.title}
-              <div className="singlePostEdit">
-                <i className="singlePostIcon far fa-edit"></i>
-                <i className="singlePostIcon far fa-trash-alt"></i>
-              </div>
-            </h1>
-            <div className="singlePostInfo">
-              <span>
-                Author:
-                <b className="singlePostAuthor">
-                  <Link className="link" to="/posts?username=Safak">
-                    Safak
-                  </Link>
-                </b>
-              </span>
-              <span>1 day ago</span>
-            </div>
-            <div className="singlePostDesc">
-              {ReactHtmlParser(blog.body)}
-            </div>
-          </div>
-        </div>
-=======
     setUser(JSON.parse(localStorage.getItem('profile')));
   },[id]);
 
@@ -104,16 +51,18 @@ const SingleBlogPage = () => {
     const data = editor.getData();
     console.log(user.result)
     setBlog({
-      ...blog, body: data,author:user.result.name
+      ...blog, body: data,authorID:user.result._id,authorName:`${user.result.firstName} ${user.result.lastName}`,
+      authorAbout:user.result.about,authorImage:user.result.profilePicture
     })
+    // console.log(`${user.result.firstName} ${user.result.lastName}`)
   };
 
     return (
       <div className="singlePost">
       <div className="singlePostWrapper">
-         <img
+         <img 
           className="singlePostImg"
-          src="https://images.pexels.com/photos/6685428/pexels-photo-6685428.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          src={blog.coverPhoto}
           alt=""
         />
         {updateMode ? (
@@ -126,8 +75,11 @@ const SingleBlogPage = () => {
           />
         ) : (
           <h1 className="singlePostTitle">
+            <style>
+              @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
+            </style> 
             {blog.title}
-            {blog.author === user?.result.name && (
+            {blog.authorID === user?.result._id && (
               <div className="singlePostEdit">
                 <i
                   className="singlePostIcon far fa-edit"
@@ -141,12 +93,10 @@ const SingleBlogPage = () => {
             )}
           </h1>
         )}
-        <div className="singlePostInfo">
+        <div className="singlePostInfo" style={{color:"#5b34eb"}}>
           <span className="singlePostAuthor">
             Author:
-            <Link to='/blogs' className="link">
-              <b> {blog.author}</b>
-            </Link>
+              <b> {blog.authorName}</b>
           </span>
           <span className="singlePostDate">
             {new Date(blog.createdAt).toDateString()}
@@ -186,8 +136,10 @@ const SingleBlogPage = () => {
           </button>
         )}
       </div>
+
     </div>
->>>>>>> blog/disc !
-      );
+
+      
+    );
 }
 export default SingleBlogPage;

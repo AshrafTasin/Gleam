@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^28.0.0",
     "@ckeditor/ckeditor5-ckfinder": "^28.0.0",
@@ -11,63 +12,32 @@
     "@emotion/styled": "^11.6.0",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
-    "@mui/material": "^5.2.1",
+    "@mui-treasury/components": "^1.10.1",
+    "@mui-treasury/styles": "^1.13.1",
+    "@mui/icons-material": "^5.2.0",
+    "@mui/material": "^5.2.2",
     "@mui/styled-engine": "^5.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     "antd": "^4.17.2",
->>>>>>> comment
-=======
->>>>>>> DiscussionWOrks
-=======
-    "antd": "^4.17.2",
->>>>>>> blog/disc !
     "axios": "^0.21.1",
-    "htmlparser2": "^7.2.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-file-base64": "^1.0.3",
     "react-google-login": "^5.2.2",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "react-redux": "^7.2.4",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
-=======
-=======
->>>>>>> comment
-=======
->>>>>>> DiscussionWOrks
     "react-helmet": "^6.1.0",
     "react-html-parser": "^2.0.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-tag-input": "^6.7.3",
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> discuss works
+    "react-toastify": "^8.1.0",
     "redux": "^4.1.0",
-=======
-    "redux": "^4.1.0",
-    "redux-devtools-extension": "^2.13.9",
->>>>>>> comment
-=======
-    "redux": "^4.1.0",
-<<<<<<< HEAD
->>>>>>> DiscussionWOrks
-=======
-    "redux-devtools-extension": "^2.13.9",
->>>>>>> blog/disc !
     "redux-thunk": "^2.3.0",
+    "styled-components": "^5.3.3",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

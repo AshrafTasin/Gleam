@@ -11,9 +11,9 @@ const DiscussionList = () => {
     const discussionList= useSelector((state) => state.discussion  );
     return (
         !discussionList.length ? <CircularProgress/> :(
-            <Grid container>
+            <Grid container direction="coloumn">
                 {discussionList.map((disc)=>(
-                    <Grid key={disc._id} item xs={12} sm={6}>
+                    <Grid key={disc._id} item xs={12} sm={12}>
                         <Disc disc={disc}/>  
                     </Grid>
                 ))}

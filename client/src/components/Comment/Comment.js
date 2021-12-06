@@ -1,99 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-import React, { Component } from "react";
-import {TextField,Button } from '@material-ui/core'
-import InputAdornment from '@material-ui/core/InputAdornment';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import {CKEditor} from '@ckeditor/ckeditor5-react';
-
-
-import RateReviewIcon from '@material-ui/icons/RateReview';
-import AddCommentIcon from '@material-ui/icons/AddComment';
-
-
-import  "./Comment.css"
-
-export class Comment extends Component {
-
-     render(){
-      
-      
-      const parent_width=1080;
-      const parent_margin_top='5vh';
-      const parent_margin_bottom='3vh';
-
-    
-      return (
-          
-          <div  className="Textarea container" style={{height:'75vh',width:parent_width, }  }     >
-               <br></br>
-
-               
-              <br/>
-              <TextField id="outlined-basic"
-                    variant="standard"  
-                    defaultValue="write Your Comment"
-                    color="secondary"
-                    // required 
-                    InputLabelProps={{style: {fontSize: 25}}} 
-                    style={{ marginTop:-1.5,width:parent_width,fontSize:'25px',height:'80px',marginBottom:-40, opacity:100,marginLeft:10,  }}
-                    InputProps={{
-                      
-                      readOnly: true,
-                      style: {fontSize: 17, fontFamily:"Ubuntu" },
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <RateReviewIcon />
-                        </InputAdornment>
-                      ),
-                  
-                    }}
-                    
-               />
-              <br/>
-              <br/>
-              <CKEditor  
-              editor={ClassicEditor}
-              style={ { marginLeft:"50px" }}
-              onReady={editor=>{
-                editor.editing.view.change((writer) => {
-                    writer.setStyle(
-                        "height",
-                        "150px",
-                        editor.editing.view.document.getRoot()
-                    );
-                    });
-              }}
-              config={
-                
-                {
-                  ckfinder:{
-                    uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json'
-                  },
-
-                }
-              } 
-              > 
-              </CKEditor>
-          
-
-            <Button 
-                size="large" id="submit_button" 
-                variant="outlined" color="primary"
-                style={{  backgroundColor: '#212121', color:'#fafafa' }}
-                startIcon={<AddCommentIcon/>}
-            > Comment 
-            </Button>
-          </div>
-         
-      );
-     }
-
-}
-export default Comment;
-=======
-=======
->>>>>>> blog/disc !
 import React from 'react'
 import { Button, Input } from 'antd';
 import axios from 'axios';
@@ -124,47 +28,55 @@ const Comment = (props) => {
 
         const datenTimeString= datentime(new Date()).concat("..."+moment().format("Do MMM YY"));
         
+        
         const packedComment ={
              content: Comment,
-             writer: 'wow',
+             writer: 'xxx',
+             postId: props.postId,
              timexdate: datenTimeString,
         }
         return packedComment;
     }
-<<<<<<< HEAD
-
-=======
-    const getComments = async () => {
-        const res = await axios.get("http://localhost:5000/comment/getComments");
-        console.log(res.data); //chk browser
-        return res;
-    };
->>>>>>> blog/disc !
+    
     const onSubmit= (e)=>{
-
+   
         e.preventDefault();
         props.refreshFunction(Comment);
         dispatch(createComment( RepackComment(Comment))); 
         setComment("")
-<<<<<<< HEAD
-=======
-        getComments();
+        //getComments();
 
->>>>>>> blog/disc !
     }
+    // const getComments =  () => {
+    //     const res =  axios.get("http://localhost:5000/comment/getComments")
+    //     .then( (e)=>{
+    //         console.log(e.data);
+    //         console.log(JSON.stringify(e.data));
+    //         setCommentLists((e.data));
+    //         return e.data;  
+    //     });
+    //    //chk browser
+    //     //return JSON.stringify(res);
+    // };
+
     return (
         <div>
            <br />
-           <p> replies</p>
+           <p> <b>Discussion replies </b> </p>
         
            {/* list cmnt */}
-            { console.log(props.CommentLists) }
-
+           <br/>
+           
+            {/* { console.log("Comment.js filed \n"+props.CommentLists) } */}
+            {console.log("OKOK "+props.postId)}
            { /* cmnt root form */}
            {props.CommentLists && props.CommentLists.map((comment,index) =>(
 
                 //if its a root cmnt
-               (!comment.responseTo &&
+            //    console.log("singlecomm\n"+comment)
+               (!comment.responseTo &&  comment.postId == props.postId && 
+                //  console.log( (comment.postId == props.id ))
+                // &&
                <React.Fragment>
                      <SingleComment comment={comment}
                       refreshFunction={props.refreshFunction}
@@ -175,7 +87,7 @@ const Comment = (props) => {
 
            ))}
 
-           <form style = {{ display: 'flex'}} onSubmit={onSubmit} >
+           <form style = {{ display: 'flex'}} /*onSubmit={onSubmit} */>
                 <Input
                     style={{ width: '100%', borderRadius: '5px'}}
                     onChange={ (e)=>setComment(e.target.value)}
@@ -193,7 +105,3 @@ const Comment = (props) => {
 }
 
 export default Comment
-<<<<<<< HEAD
->>>>>>> comment
-=======
->>>>>>> blog/disc !

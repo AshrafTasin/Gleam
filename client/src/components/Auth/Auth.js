@@ -1,20 +1,28 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import { Avatar,Button,Grid,Paper,Typography,Container, Icon } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOpenOutlined"
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { GoogleLogin } from "react-google-login";
 import { useDispatch } from "react-redux"; 
-import { useHistory } from 'react-router-dom';
+import { useHistory,Link } from 'react-router-dom';
 import { signin,signup } from '../../actions/auth';
 import Input from "./Input";
 // import icon from "./Icon"
 
-// import useStyles from './styles';           CUSTOM CSS
+import useStyles from './styles';   
 
-const initialState ={firstName: '', lastName: '', email: '', passwrord: '', confirmPassword: ''};
+const initialState ={firstName: '', lastName: '', email: '', password: '', confirmPassword: ''};
 
 const Auth = () => {
 
-    // const classes = useStyles();             CUSTOM CSS
+
+    useEffect(()=>{
+        if(localStorage.getItem('profile')){
+            history.push('/');
+        }
+    })
+
+    const classes = useStyles();       
 
     const [showPassword,setShowPassword] = useState(false);
     const [isSignUp,setIsSignUp] = useState(false);
@@ -32,12 +40,9 @@ const Auth = () => {
             dispatch(signup(formData,history));  
               
         }else{
+            console.log(formData);
             dispatch(signin(formData,history));
         }
-    };
-
-    const handleChange =(event) => {
-        setFormData({ ...formData,[event.target.name]: event.target.value});
     };
 
     const switchMode = () => {
@@ -64,73 +69,133 @@ const Auth = () => {
 
 
     return (
-        <Container component="main" maxWidth="xs">
-            <Paper elevation={3}>
-                <Avatar>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography variant="h5">{isSignUp ? "Sign Up" : "Sign In"}</Typography>
-                <form onSubmit={handleSubmit}>
-                    <Grid container spacing={2}>
-                    {
-                        isSignUp && (
-                            <>
-                                <Input name="firstname" label="First Name" handleChange={handleChange} autoFocus half />
-                                <Input name="lastname" label="Last Name" handleChange={handleChange} half />
-                            </>
-                        )
-                    }
+            <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            {
+                isSignUp && (
+                    <>
+                        <Input name="firstname" label="First Name" handleChange={(e) => setFormData({ ...formData,firstName: e.target.value})} autoFocus half />
+                        <Input name="lastname" label="Last Name" handleChange={(e) => setFormData({ ...formData,lastName: e.target.value})} half />
+                    </>
+                         )
+            }
+            <Input name="email" label="Email Address" handleChange={(e) => setFormData({ ...formData,email: e.target.value})} type="email"/>
+            <Input name="password" label="Password" handleChange={(e) => setFormData({ ...formData,password: e.target.value})} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
 
-                    <Input name="email" label="Email Address" handleChange={handleChange} type="email"/>
-                    <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
-                    {
-                        isSignUp && 
-                        <Input name="confirmPassword" label="Confirm Password" handleChange={handleChange} type="password" />
-                    }
-                    </Grid>
+            {
+                isSignUp && 
+                <Input name="confirmPassword" label="Confirm Password" handleChange={(e) => setFormData({ ...formData,confirmPassword: e.target.value})} type="password" />
+            }
+            </Grid>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              {isSignUp ? "Sign Up" : "Sign In"}
+            </Button>
+            <Grid container>
+            {/* <Grid item xs>
+              <Link to="/reset-password" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid> */}
+            <Grid item>
+              <Link href="#" variant="body2" onClick={switchMode}>
+              {isSignUp ? "Already have an account ? Sign In" : "Need an account ? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+          </form>
+        </div>
+      </Container>
+    );
 
-                    <Button type="submit" fullWidth variant="contained" color="primary" >
-                        {isSignUp ? "Sign Up" : "Sign In"}
-                    </Button>
 
-                    <GoogleLogin 
-                        clientId="630287535020-c7horr7mrrt0scr4mjhvjuvuehnn2nr4.apps.googleusercontent.com"
-                        render={(renderProps) => (
-                            <Button
-                            color="primary"
-                            fullWidth
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled}
-                            startIcon={<Icon />}
-                            variant="contained"
 
-                            >
-                                Google Sign In
-                            </Button>
-                        )}
+        // <Container component="main" maxWidth="xs">
+        //     <Paper elevation={3}>
+        //         <Avatar>
+        //             <LockOutlinedIcon />
+        //         </Avatar>
+        //         <Typography variant="h5">{isSignUp ? "Sign Up" : "Sign In"}</Typography>
+        //         <form onSubmit={handleSubmit}>
+        //             <Grid container spacing={2}>
+        //             {
+        //                 isSignUp && (
+        //                     <>
+        //                         <Input name="firstname" label="First Name" handleChange={(e) => setFormData({ ...formData,firstName: e.target.value})} autoFocus half />
+        //                         <Input name="lastname" label="Last Name" handleChange={(e) => setFormData({ ...formData,lastName: e.target.value})} half />
+        //                     </>
+        //                 )
+        //             }
+
+        //             <Input name="email" label="Email Address" handleChange={(e) => setFormData({ ...formData,email: e.target.value})} type="email"/>
+        //             <Input name="password" label="Password" handleChange={(e) => setFormData({ ...formData,password: e.target.value})} type={showPassword ? "text" : "password"} handleShowPassword={handleShowPassword} />
+        //             {
+        //                 isSignUp && 
+        //                 <Input name="confirmPassword" label="Confirm Password" handleChange={(e) => setFormData({ ...formData,confirmPassword: e.target.value})} type="password" />
+        //             }
+        //             </Grid>
+
+        //             <Button type="submit" fullWidth variant="contained" color="primary" >
+        //                 {isSignUp ? "Sign Up" : "Sign In"}
+        //             </Button>
+
+        //             {/* <GoogleLogin 
+        //                 clientId="630287535020-c7horr7mrrt0scr4mjhvjuvuehnn2nr4.apps.googleusercontent.com"
+        //                 render={(renderProps) => (
+        //                     <Button
+        //                     color="primary"
+        //                     fullWidth
+        //                     onClick={renderProps.onClick}
+        //                     disabled={renderProps.disabled}
+        //                     startIcon={<Icon />}
+        //                     variant="contained"
+
+        //                     >
+        //                         Google Sign In
+        //                     </Button>
+        //                 )}
                         
-                        onSuccess={googleSuccess}
-                        onFailure={googleFailure}
-                        cookiePolicy={"single_host_origin"}
+        //                 onSuccess={googleSuccess}
+        //                 onFailure={googleFailure}
+        //                 cookiePolicy={"single_host_origin"}
 
-                    />
-
-
+        //             /> */}
 
 
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Button onClick={switchMode}>
-                                {isSignUp ? "Already have an account ? Sign In" : "Need an account ? Sign Up"}
-                            </Button>
-                        </Grid>
 
-                    </Grid>
 
-                </form>
-            </Paper>
-        </Container>
-    )
+        //             <Grid container justify="flex-end">
+        //                 <Grid item>
+        //                     <Button onClick={switchMode}>
+        //                         {isSignUp ? "Already have an account ? Sign In" : "Need an account ? Sign Up"}
+        //                     </Button>
+        //                     <Link to='/reset-password'>
+        //                         <Button>
+        //                             forgot pass?
+        //                         </Button>
+        //                     </Link>
+        //                 </Grid>
+
+        //             </Grid>
+
+        //         </form>
+        //     </Paper>
+        // </Container>
+    //)
 }
 
 export default Auth
