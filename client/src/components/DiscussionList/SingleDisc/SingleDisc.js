@@ -11,29 +11,49 @@ import "./SingleDisc.css";
 import { updateDisc } from '../../../api';
 import Comment from '../../Comment/Comment' 
 
+var fetchRun=0;
 
 const SingleDiscPage = () => {
   const parent_margin_top='5vh';
 
   const [CommentLists, setCommentLists]= useState([]);
+  
   const updateComment= (newComment)=>{
       
       setCommentLists(CommentLists.concat(newComment))
+      fetchRun=0;
   }
 
   const getComments =  () => {
-      const res =  axios.get("http://localhost:5000/comment/getComments")
-      .then( (e)=>{
-          console.log(e.data);
+
+      if(fetchRun>5) return ;
+      // axios.get("http://localhost:5000/comment/getComments",
+      // {
+         
+      // } )
+      // .then( (e)=>{
+      //     console.log(e.data);
+      //     ///console.log(JSON.stringify(e.data));
+      //     fetchRun++;
+      //     setCommentLists((e.data));
+      //     return e.data;  
+      // });
+
+      const res = axios.get("http://localhost:5000/comment/getComments");
+     
+      console.log(res.data);
           ///console.log(JSON.stringify(e.data));
-          setCommentLists((e.data));
-          return e.data;  
-      });
+      fetchRun++;
+      setCommentLists(res.data);
+      //return res.data;  
+      ;
+
+
      //chk browser
       //return JSON.stringify(res);
   };
   getComments();
-
+  
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -152,7 +172,7 @@ const SingleDiscPage = () => {
 
 
       <Comment CommentLists={CommentLists}
-         postId={"ooo"}  refreshFunction={updateComment}/>
+         postId={id}    refreshFunction={updateComment}/>
         
     </div>
       );

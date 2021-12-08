@@ -10,6 +10,7 @@ import datentime from '../Date&Time/datentime';
 import moment from 'moment';
 
 import SingleComment from './SingleComment';
+import { IconButton} from "@material-ui/core";
 
 
 // const Textarea = Input ;
@@ -18,6 +19,7 @@ import SingleComment from './SingleComment';
 const Comment = (props) => {
 
     const dispatch = useDispatch();
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
     
     const [Comment,setComment] = useState("");
     // const handleChange = (e)=>{
@@ -28,17 +30,25 @@ const Comment = (props) => {
 
         const datenTimeString= datentime(new Date()).concat("..."+moment().format("Do MMM YY"));
         
+        setUser(JSON.parse(localStorage.getItem('profile')));
+        // console.log("ashraf "+user.result);
+        
         const packedComment ={
              content: Comment,
-             writer: 'wow',
+             writer: `${user.result.firstName} ${user.result.lastName}`,
+             postId: props.postId,
              timexdate: datenTimeString,
         }
+        // console.log("ashraf "+packedComment.writer);
         return packedComment;
     }
     
     const onSubmit= (e)=>{
-
+   
         e.preventDefault();
+        
+        
+        // console.log(packedComment.writer);
         props.refreshFunction(Comment);
         dispatch(createComment( RepackComment(Comment))); 
         setComment("")
@@ -63,14 +73,16 @@ const Comment = (props) => {
            <p> replies</p>
         
            {/* list cmnt */}
-            { console.log("Comment.js filed \n"+props.CommentLists) }
-
+            {/* { console.log("Comment.js filed \n"+props.CommentLists) } */}
+            {console.log("OKOK "+props.postId)}
            { /* cmnt root form */}
            {props.CommentLists && props.CommentLists.map((comment,index) =>(
 
                 //if its a root cmnt
             //    console.log("singlecomm\n"+comment)
-               (!comment.responseTo &&
+               (!comment.responseTo &&  comment.postId == props.postId && 
+                //  console.log( (comment.postId == props.id ))
+                // &&
                <React.Fragment>
                      <SingleComment comment={comment}
                       refreshFunction={props.refreshFunction}

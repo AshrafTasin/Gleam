@@ -10,3 +10,14 @@
 .imageArea{
   object-fit: contain;
 }
+
+#coverpic{
+
+  max-width: 100%;
+  max-height:300px;
+  min-height:300px ;
+
+  min-width: 97%;
+
+  object-fit: cover;
+}

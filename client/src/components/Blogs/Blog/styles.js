@@ -33,6 +33,7 @@ export default makeStyles(({ breakpoints, spacing }) => ({
     boxShadow: '0px 14px 80px rgba(34, 35, 58, 0.2)',
     position: 'relative',
     maxWidth: 500,
+    marginTop: '25px',
     marginLeft: 'auto',
     overflow: 'initial',
     background: '#ffffff',

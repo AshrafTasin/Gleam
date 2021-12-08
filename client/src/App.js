@@ -12,13 +12,13 @@ import Auth from "./components/Auth/Auth.js";
 import Blogs from "./components/Blogs/Blogs.js";
 import NewBlog from "./components/Blogs/CreateBlog.js";
 import EditProfile from "./components/Profile/EditProfile.js";
-import About from "./components/About/About.js";
+import Profile from "./components/Profile/Profile.js";
 import Verification from "./components/Auth/Verification.js";
 import NewPassword from "./components/Auth/NewPassword.js";
 import PasswordReset from "./components/Auth/PasswordReset.js";
 import Confirmation from "./components/Auth/Confirmation.js";
 import Protected from "./Protected.js"; 
-
+import Footer from "./components/Footer/Footer";
 
 /////// JoyDIp
 import NewDiscussion from "./components/DiscussionList/CreateDiscussion.js";
@@ -43,14 +43,15 @@ const App = () => {
       <Container>
         <Navbar />
         {/* <Blogs/> */}
-        <Switch>
+        <Switch >
           <Route path="/" exact component={Home} /> 
           <Route path="/auth" exact component={Auth} />
           <Route path="/blogs" exact component={Blogs} />
           <Route path="/new-blog">
             <Protected component={NewBlog} />
           </Route>
-          <Route path="/about" exact component={About}/>
+
+          <Route path="/profile" exact component={Profile}/>
           <Route path="/edit" exact component={EditProfile}/>
           <Route path="/blog/:blogid" exact component={Post}/>
           <Route path='/verification' exact component={Verification}/>
@@ -58,10 +59,22 @@ const App = () => {
           <Route path='/reset-password'exact component={PasswordReset} />
           <Route path='/confirmation' exact component={Confirmation} />
 
-          <Route path="/new-disc" exact component={NewDiscussion}/>
+          <Route path="/new-disc">
+            <Protected component={NewDiscussion} />
+          </Route>
+
+          {/* <Route path="/new-disc"
+            <Protected component={NewDiscussion} />
+          </Route> */}
+  
           <Route path="/discussion" exact component={Discussions} />
           <Route path="/discussion/:discussionid" exact component={SingleDiscPage}/>
         </Switch>
+
+      
+      </Container>
+      <Container style={{ marginTop:"4vh" }}>
+           <Footer />
       </Container>
     </BrowserRouter>
   );

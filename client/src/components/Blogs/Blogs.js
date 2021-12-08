@@ -3,15 +3,9 @@ import Blog from './Blog/Blog';
 import {Grid,CircularProgress} from '@material-ui/core';
 import { useSelector } from 'react-redux';
 
-///
-
-
 
 const Blogs = () => {
     const blogs= useSelector((state) => state.blogReducers);
-
-    ////
-
 
     return (
         

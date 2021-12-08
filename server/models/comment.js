@@ -5,9 +5,9 @@ const commentSchema= mongoose.Schema({
    
     writer: {   type: String,  },
     postId: {   type: String },
-responseTo: {   type: String },
-   content: {   type: String , required:true },
-   timexdate:    {   type: String }
+    responseTo: {   type: String },
+    content: {   type: String , required:true },
+    timexdate:    {   type: String }
 
 
 });

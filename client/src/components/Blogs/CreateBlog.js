@@ -6,10 +6,6 @@ import useStyles from './styles';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 
-import Autocomplete from '@mui/material/Autocomplete';
-
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import AirplayIcon from '@material-ui/icons/Airplay'; 
 import PublishIcon from '@material-ui/icons/Publish';
 
 import {useDispatch} from 'react-redux';
@@ -17,7 +13,12 @@ import { createBlog } from '../../actions/blogs';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import "./createBlog.css";
+
 
 const CreateBlog = () => {
     const parent_width=1080;
@@ -28,6 +29,31 @@ const CreateBlog = () => {
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState('');
     const fileInputRef = useRef(HTMLInputElement);
+
+    const [open, setOpen] = useState(false);
+  
+    const handleClose = (event, reason) => {
+      if (reason === 'clickaway') {
+        return;
+      }
+      setOpen(false);
+    };
+
+    const action = (
+      <React.Fragment>
+        <Button color="secondary" size="small" onClick={handleClose}>
+          UNDO
+        </Button>
+        <IconButton
+          size="small"
+          aria-label="close"
+          color="inherit"
+          onClick={handleClose}
+        >
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </React.Fragment>
+    );
 
     useEffect(() => {
       if (image) {
@@ -91,23 +117,20 @@ const CreateBlog = () => {
       setBlogData({...blogData,tags:result});
     }
 
-    const notify = () => toast.success('Blog Added Successfully!', {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: false,
-        progress: undefined,
-      });;
 
     const handleSubmit = (event) =>{
         event.preventDefault();
         console.log(blogData);
+        if(blogData.body==='1' || blogData.title==='' || blogData.summary==='' || blogData.coverPhoto===null){
+          
+          setOpen(true);
+          window.location.replace('/new-blog');
         
-        dispatch(createBlog(blogData));
-        notify();
-        window.location.replace('/blogs');
+        }else{  
+          dispatch(createBlog(blogData));
+          window.location.replace('/blogs');
+        }
+
     }
 
     const handleCkeditor = (event,editor) => {
@@ -122,137 +145,35 @@ const CreateBlog = () => {
 
     return (
 
-        // <Paper>
-        //   <form autoComplete='off' noValidate onSubmit={handleSubmit}>
-        //       <TextField name="blog_title" 
-        //               id="outlined-basic" 
-        //               label="Blog Title" 
-        //               variant="outlined"  
-        //               color="secondary"
-        //               InputLabelProps={{style: {fontSize: 20}}} 
-        //               style={{ marginTop:parent_margin_top,width:parent_width,fontSize:'25px',height:'80px',marginBottom:parent_margin_bottom  }}
-        //               InputProps={{
-        //                 style: {fontSize: 20, fontFamily:"Ubuntu" },
-        //                 startAdornment: (
-        //                   <InputAdornment position="start">
-        //                     <TextFieldsIcon />
-        //                   </InputAdornment>
-        //                 ),
-        //               }}
-        //               value={blogData.title}
-        //               onChange={(e) => setBlogData({...blogData,title:e.target.value})}
-                  
-        //       />
-        //       <br></br>
-
-        //       <div className="auto__complete">
-        //             <Autocomplete
-        //                 multiple
-        //                 id="size-small-outlined-multi"
-        //                 size="large"
-        //                 options={toptags}
-        //                 getOptionLabel={(option) => option.title}
-        //                 renderInput={(params) => (
-        //                   <TextField {...params} label="Tag(s)" placeholder="Choose/Type letters" />
-        //                 )}
-        //                 onChange={handleTags}
-        //             />
-        //       </div>  
-
-        //       <br/>
-        //       <TextField id="outlined-basic"
-        //           variant="standard"  
-        //           defaultValue="Body"
-        //           color="secondary"
-        //           InputLabelProps={{style: {fontSize: 25}}} 
-        //           style={{ marginTop:-1.5,width:parent_width,fontSize:'25px',height:'80px',marginBottom:-10, opacity:100,marginLeft:10,  }}
-        //           InputProps={{
-                    
-        //             readOnly: true,
-        //             style: {fontSize: 17, fontFamily:"Ubuntu" },
-        //             startAdornment: (
-        //               <InputAdornment position="start">
-        //                 <AirplayIcon />
-        //               </InputAdornment>
-        //             ),
-                
-        //           }}
-                  
-        //       />
-        //       <br/>
-        //       <div className="EditorClass" >
-            
-        //       <CKEditor  
-        //           editor={ClassicEditor}
-        //           name="editor1"
-                  
-        //           style={ {  marginTop:parent_margin_top,height:'75vh',width:1280}}
-        //           onReady={editor=>{
-        //             editor.editing.view.change((writer) => {
-        //               writer.setStyle(
-        //                   "height",
-        //                   "450px",
-        //                   editor.editing.view.document.getRoot());
-        //               });
-        //           }}
-                  
-        //           config={
-        //             {
-        //               ckfinder:{
-        //                 uploadUrl: '/blogs/upload'
-        //               },
-        //             }
-        //           }
-                  
-        //           onChange={handleCkeditor}> 
-        //       </CKEditor>
-        //       </div>
-
-        //       <Button 
-        //           size="large" id="submit_button" 
-        //           variant="outlined" color="primary"
-        //           // style={{  backgroundColor: '#212121', color:'#fafafa' }}
-        //           startIcon={<PublishIcon />}
-        //           type='submit'
-        //       > Post 
-        //       </Button>
-        //   </form>
-        //   <ToastContainer/>
-        // </Paper>
-
-      //   <Box
-      //   sx={{
-      //     width: 1250,
-      //     height: 300,
-      //     backgroundColor: '#ffffff',
-      //     '&:hover': {
-      //       backgroundColor: 'primary.main',
-      //       opacity: [0.9, 0.8, 0.7],
-      //     },
-      //   }}
-      // > 
-  
-      <form className="containered" onSubmit={handleSubmit}>
+      <Paper>
+        <form autoComplete='off' Validate onSubmit={handleSubmit}>
+        <Box component="span" sx={{ p: 2, border: '1px dashed grey' }}>
         {preview ? (
-          <img
-            height="700"
-            width="1250"
+
+          <img id="coverpic"
+            // style={{height:"271px",maxheight: "336px",
+            //  max-width:"336px",
+            //  width: "263px",}}
             src={preview}
             className="imageArea"
-            onClick={() => {
-              setImage(null);
+            onClick={() => { 
+              
+              setImage(null); 
+            
             }}
           />
-        ) : (
-          <button
+          ) : (
+          <button style={{ width:"97%",  marginBottom:'1vh' , marginTop:'3vh'  }}
             onClick={(event) => {
               event.preventDefault();
               fileInputRef.current.click();
+              
             }}
-          >
-            Add Image
+          >Add Cover Pic
           </button>
-        )}
+           )}
+        </Box>
+
         <input
           type="file"
           style={{ display: "none" }}
@@ -263,25 +184,76 @@ const CreateBlog = () => {
             if (file && file.type.substr(0, 5) === "image") {
               setImage(file);
               console.log(fileInputRef);
+              setOpen(true);
             } else {
               setImage(null);
             }
           }}
+          
         />
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Write Something on Body"
+        action={action}
+       />
         
-        <TextField 
-            id="standard-basic" 
+            <TextField name="dis_title" 
+            id="outlined-basic" 
+            label="Question/Discussion Title" 
+            variant="outlined"  
+            color="primary"
+            required
+            InputLabelProps={{style: {fontSize: 20}}} 
+            style={{ marginTop:parent_margin_top,width:'100%',fontSize:'25px',
+            height:'80px'  }}
+            InputProps={{
+              style: {fontSize: 20, fontFamily:"Ubuntu" },
+              startAdornment: (
+                <InputAdornment position="start">
+                 
+                </InputAdornment>
+              ),
+            }}
             label="Title" 
             onChange={(e) => setBlogData({...blogData,title:e.target.value})}
+            required
         />
 
-        <TextField 
-            id="standard-basic" 
+        <TextField name="dis_sum" 
+                      id="outlined-basic" 
+                      label="Short Summary" 
+                      variant="outlined"  
+                      color="primary"
+                      InputLabelProps={{style: {fontSize: 20}}} 
+                      style={{ marginTop:'2vh',width:'100%',fontSize:'25px',
+                      height:'80px'  }}
+                      InputProps={{
+                        style: {fontSize: 20, fontFamily:"Ubuntu" },
+                        startAdornment: (
+                          <InputAdornment position="start">
+                          </InputAdornment>
+                        ),
+                      }}
             label="Summary" 
             onChange={(e) => setBlogData({...blogData,summary:e.target.value})}
+            required
         />
 
-        <CKEditor  
+          <TextField 
+                  variant="standard"  
+                  defaultValue="Write your Discussion"
+                  InputLabelProps={{style: {fontSize: 25}}} 
+                  style={{ marginTop:-2.5,width:'98%',fontSize:'25px',height:'80px',marginBottom:-48, opacity:100  }}
+                  required
+             />
+
+      <div className="EditorClass" >
+        {
+          user ?  (
+            <CKEditor  
             editor={ClassicEditor}
             name="editor1"
                   
@@ -305,6 +277,9 @@ const CreateBlog = () => {
                   
             onChange={handleCkeditor}> 
           </CKEditor>
+          ) : <></>
+        }
+          </div>
 
          <Button 
               size="large" id="submit_button" 
@@ -316,10 +291,10 @@ const CreateBlog = () => {
         </Button>
 
         </form>
+        </Paper>
 
     )
 };
 
 export default CreateBlog;
-
 

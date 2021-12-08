@@ -1,0 +1,9 @@
+.image{
+    max-width: 131px;
+    max-height: 131px;
+    /* border-radius: 50%; */
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-bottom: 20px;
+    display: block;
+}
