@@ -1,6 +1,27 @@
 .singleDisc {
     flex: 9;
   }
+
+.parent{
+   
+  padding: 2;
+
+}
+.child{
+  display: inline-block;
+}
+
+.child1{
+  width: 7%;
+  vertical-align: top;
+  margin-top: 60px;
+ 
+}
+.child2{
+
+   width: 85%;
+   margin-left: 90px;
+}
   
   .singleDiscWrapper {
     padding: 20px;

@@ -40,7 +40,7 @@ const Navbar = () => {
 
     const handleClick = (event) => {
       event.stopPropagation();
-      console.log(user.result);
+     // console.log("USER "+user.result);
       setAnchorEl(event.currentTarget);
     };
   

@@ -10,8 +10,6 @@ import { useSelector } from 'react-redux';
 const Blogs = () => {
     const blogs= useSelector((state) => state.blogReducers);
 
-    ////
-
 
     return (
         

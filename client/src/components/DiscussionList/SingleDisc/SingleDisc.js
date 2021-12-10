@@ -12,28 +12,43 @@ import { updateDisc } from '../../../api';
 import Comment from '../../Comment/Comment' 
 
 
-const SingleDiscPage = () => {
-  const parent_margin_top='5vh';
+import Vote from './Vote';
 
+const SingleDiscPage = () => {
+
+  const parent_margin_top='5vh';
   const [CommentLists, setCommentLists]= useState([]);
   const updateComment= (newComment)=>{
       
       setCommentLists(CommentLists.concat(newComment))
   }
 
-  const getComments =  () => {
-      const res =  axios.get("http://localhost:5000/comment/getComments")
-      .then( (e)=>{
-          console.log(e.data);
-          ///console.log(JSON.stringify(e.data));
-          setCommentLists((e.data));
-          return e.data;  
-      });
-     //chk browser
-      //return JSON.stringify(res);
-  };
-  getComments();
+  // const getComments =  () => {
+  //     const res =  axios.get("http://localhost:5000/comment/getComments")
+  //     .then( (e)=>{
+  //         console.log(e.data);
+  //         ///console.log(JSON.stringify(e.data));
+  //         setCommentLists((e.data));
+  //         return e.data;  
+  //     });
+  //    //chk browser
+  //     //return JSON.stringify(res);
+  // };
+  // getComments();
 
+   function getComments() {
+    try {
+        
+        const response = axios.get("http://localhost:5000/comment/getComments")
+        .then( (e)=>{
+            if( CommentLists.length != e.data.length ) {setCommentLists((e.data));}
+        })
+    } catch (error) {
+        console.error(error);
+    }
+   }
+
+  
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -43,7 +58,8 @@ const SingleDiscPage = () => {
   const [disc, setDisc] = useState({disc:''});
   const [updateMode, setUpdateMode] = useState(false);
 
-  
+  getComments();
+  console.log(user?.result.name)
   useEffect(() => {
     
     const getDisc = async () => {
@@ -55,8 +71,12 @@ const SingleDiscPage = () => {
   },[id]);
 
   const handleDelete = async () => {
-      dispatch(deleteDisc(id));
-      window.location.replace('/discussion');
+      // dispatch(deleteDisc(id));
+      // window.location.replace('/discussion');
+      disc.upvote=disc.upvote+1;
+     updateDisc(disc);
+       
+
   };
 
   const handleUpdate = async () => {
@@ -73,7 +93,14 @@ const SingleDiscPage = () => {
   };
 
     return (
-      <div className="singleDisc">
+      
+      <div className="parent">
+
+        <div className="child1 child" style={{}} >
+          <Vote />
+        </div>
+
+      <div className="singleDisc child2 child"  style={{ }}>
       <div className="singleDiscWrapper">
          <img
           className="singleDiscImg"
@@ -91,7 +118,7 @@ const SingleDiscPage = () => {
         ) : (
           <h1 className="singleDiscTitle">
             {disc.title}
-            {disc.author === user?.result.name && (
+            {disc.author !== user?.result.name && (
               <div className="singleDiscEdit">
                 <i
                   className="singleDiscIcon far fa-edit"
@@ -152,9 +179,13 @@ const SingleDiscPage = () => {
 
 
       <Comment CommentLists={CommentLists}
-         postId={id}  refreshFunction={updateComment}/>
-        
+         postId={id} refreshFunction={updateComment} />
+      
+     </div>
+   
+   
     </div>
+
       );
 }
 export default SingleDiscPage;

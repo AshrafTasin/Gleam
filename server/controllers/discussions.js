@@ -20,10 +20,12 @@ export const getDisc = async (req,res)=> {
  
 export const createDiscs = async (req,res) => {
 
-    const disc = req.body;
+    const disc = req.body;       
+    console.log( " XXX "+disc);
     const newDisc = new DiscussionProto(disc);
 
     try {
+
         await newDisc.save();
         res.status(201).json(newDisc);
     } catch (error) {
@@ -89,11 +91,11 @@ export const updateDisc = async (req,res) => {
   const id  = req.params.id;
   console.log(id);
   console.log(req.body);
-  const { createdAt,tags,likeCount,author, title, body, _id,_v } = req.body;
+  const { createdAt,tags,upvote,author, title, body, _id,_v } = req.body;
   
   // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-  const updatedDisc = { createdAt,tags,likeCount,author, title, body, _id: id,_v };
+  const updatedDisc = { createdAt,tags,upvote,author, title, body, _id: id,_v };
 
   try {
         await DiscussionProto.findByIdAndUpdate(id, updatedDisc, { new: true });

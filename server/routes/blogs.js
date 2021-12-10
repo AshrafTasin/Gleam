@@ -4,8 +4,9 @@ import ckimage from '../middleware/ckimage.js';
 
 const router = express.Router();
 
-router.get('/getBlog',getBlogs);
 router.post('/createBlog',createBlogs);
+
+router.get('/getBlog',getBlogs);
 router.post('/upload',ckimage,blogImage);
 
 router.get('/images/:id',getBlogImage);

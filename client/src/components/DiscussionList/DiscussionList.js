@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 
 const DiscussionList = () => {
     
-    const testcode= useSelector((state)=> console.log("ABCDEFGHIJKL     ~~~~~~~~  " +state ));
-    const testcode2= useSelector((state)=> console.log("WXYZ~~~~~~~~\n  " +state.discussion ));
+    // const testcode= useSelector((state)=> console.log("ABCDEFGHIJKL     ~~~~~~~~  " +state ));
+    // const testcode2= useSelector((state)=> console.log("WXYZ~~~~~~~~\n  " +state.discussion ));
     
     const discussionList= useSelector((state) => state.discussion  );
     return (
